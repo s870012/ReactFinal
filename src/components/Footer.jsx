@@ -1,9 +1,11 @@
+import logo from "../assets/images/logo.png"
+
 function Footer (){
   return (<>
     <div className="bg-dark py-5">
       <div className="container">
         <div className="d-flex align-items-center justify-content-between text-white mb-md-7 mb-4">
-          <a className="text-white h4" href="./index.html">LOGO</a>
+          <a className="text-white h4" href="./index.html"><img src={logo} alt="logo" width="160px"/></a>
           <ul className="d-flex list-unstyled mb-0 h4">
             <li><a href="#" className="text-white mx-3"><i className="fab fa-facebook"></i></a></li>
             <li><a href="#" className="text-white mx-3"><i className="fab fa-instagram"></i></a></li>

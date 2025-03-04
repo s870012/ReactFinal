@@ -9,7 +9,7 @@ function Search(){
             <input type="text" className="form-control rounded-0" placeholder="請輸入想搜尋的商品" />
             <div className="input-group-append">
               <button className="btn btn-dark rounded-0" type="button" id="search">
-                Lorem ipsum
+                搜尋
               </button>
             </div>
           </div>

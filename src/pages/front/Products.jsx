@@ -31,76 +31,32 @@ function Products (){
       <div className="position-absolute" style={{top:"0", bottom: "0", left: "0", right: "0", backgroundImage: `url(https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,backgroundSize: "cover", backgroundPosition: "center center", opacity: "0.3"}}></div>
       <h2 className="fs-1 fw-bold">新鮮出爐 溫暖每一天</h2>
     </div>
+    <Search/>
     <div className="container mt-md-5 mt-3 mb-7">
       <div className="row">
-        <div className="col-md-4">
-          <div className="accordion border border-bottom border-top-0 border-start-0 border-end-0 mb-3" id="accordionExample">
+        <div className="col-md-3">
+          <div className="border border-bottom border-top-0 border-start-0 border-end-0 mb-3">
             <div className="card border-0">
               <div className="card-header px-0 py-4 bg-white border border-bottom-0 border-top border-start-0 border-end-0 rounded-0" id="headingOne" data-bs-toggle="collapse" data-bs-target="#collapseOne">
                 <div className="d-flex justify-content-between align-items-center pe-1">
                   <h4 className="mb-0">
-                    Lorem ipsum
+                    商品種類
                   </h4>
-                  <i className="fas fa-chevron-down"></i>
                 </div>
               </div>
-              <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div className="card-body py-0">
-                  <ul className="list-unstyled">
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="card border-0">
-              <div className="card-header px-0 py-4 bg-white border border-bottom-0 border-top border-start-0 border-end-0 rounded-0" id="headingTwo" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-                <div className="d-flex justify-content-between align-items-center pe-1">
-                  <h4 className="mb-0">
-                    Lorem ipsum
-                  </h4>
-                  <i className="fas fa-chevron-down"></i>
-                </div>
-              </div>
-              <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div className="card-body py-0">
-                  <ul className="list-unstyled">
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="card border-0">
-              <div className="card-header px-0 py-4 bg-white border border-bottom-0 border-top border-start-0 border-end-0 rounded-0" id="headingThree" data-bs-toggle="collapse" data-bs-target="#collapseThree">
-                <div className="d-flex justify-content-between align-items-center pe-1">
-                  <h4 className="mb-0">
-                    Lorem ipsum
-                  </h4>
-                  <i className="fas fa-chevron-down"></i>
-                </div>
-              </div>
-              <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div className="card-body py-0">
-                  <ul className="list-unstyled">
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                    <li><a href="#" className="py-2 d-block text-muted">Lorem ipsum</a></li>
-                  </ul>
-                </div>
+              <div className="card-body py-0">
+                <ul className="list-unstyled">
+                  <li className="hover py-2 d-block text-muted">歐式麵包</li>
+                  <li className="hover py-2 d-block text-muted">甜點麵包</li>
+                  <li className="hover py-2 d-block text-muted">鹹味麵包</li>
+                  <li className="hover py-2 d-block text-muted">日式麵包</li>
+                  <li className="hover py-2 d-block text-muted">特色麵包</li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-9">
           <div className="row">
             {products.map((product) => {
               return(
@@ -126,7 +82,6 @@ function Products (){
         </div>
       </div>
     </div>
-    <Search/>
   </>)
 }
 
