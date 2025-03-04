@@ -12,6 +12,7 @@ function Products (){
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({});
   
+  //取得產品
   const getProducts = async(page = 1) => {
     try {
       const res = await axios.get(`${url}/api/${path}/products?page=${page}`)

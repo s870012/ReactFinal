@@ -12,6 +12,9 @@ export const cartSlice = createSlice({
     getCart(state, { payload }){
       state.data = payload
     },
+    deleteCart(state, {payload}){
+      state.data = payload
+    },
   }
 })
 
@@ -31,13 +34,15 @@ export const asyncGetCart = createAsyncThunk(
 
 export const asyncDeleteCart = createAsyncThunk(
   'cart/asyncDeleteCart',
-  async() => {
+  async(_, {dispatch}) => {
     try {
-      await axios.delete(`${url}/api/${path}/carts`)
+      const res = await axios.delete(`${url}/api/${path}/carts`)
+      dispatch(deleteCart(res.data))
     } catch (error) {
       console.log(error);
     }
   }
 )
+
 
 export default cartSlice.reducer

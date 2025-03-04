@@ -1,7 +1,7 @@
 import axios from "axios"
 
 import { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { useParams, Link } from "react-router"
 
 import Search from "../../components/Search"
 
@@ -10,6 +10,7 @@ const path = import.meta.env.VITE_API_PATH
 function ProductDetail (){
   const { id } = useParams()
   const [product, setProduct] = useState({});
+  const [cartQty, setCartQty] = useState(1);
 
   useEffect(() => {
     (async() => {
@@ -21,6 +22,19 @@ function ProductDetail (){
       }
     })()
   }, [id])
+
+  const addCartItem = async (product_id, qty) => {
+    try {
+      await axios.post(`${url}/api/${path}/cart`, {
+        data:{
+          product_id,
+          qty:Number(qty)
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return(<>
     <div className="container">
@@ -49,9 +63,9 @@ function ProductDetail (){
         <div className="col-md-5">
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb bg-white px-0 mb-0 py-3">
-              <li className="breadcrumb-item"><a className="text-muted" href="./index.html">Home</a></li>
-              <li className="breadcrumb-item"><a className="text-muted" href="./product.html">Product</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Detail</li>
+              <li className="breadcrumb-item"><Link className="text-muted" to="/">首頁</Link></li>
+              <li className="breadcrumb-item"><Link className="text-muted" to="/products">商品</Link></li>
+              <li className="breadcrumb-item active" aria-current="page">介紹</li>
             </ol>
           </nav>
           <h2 className="fw-bold h1 mb-1">{product.title}</h2>
@@ -59,22 +73,21 @@ function ProductDetail (){
           <p className="h4 fw-bold text-end">NT${product.price}</p>
           <div className="row align-items-center">
             <div className="col-6">
-              <div className="input-group my-3 bg-light rounded">
-                <div className="input-group-prepend">
-                  <button className="btn btn-outline-dark border-0 py-2" type="button" id="button-addon1">
-                    <i className="fas fa-minus"></i>
-                  </button>
-                </div>
-                <input type="text" className="form-control border-0 text-center my-auto shadow-none bg-light" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="1"/>
-                <div className="input-group-append">
-                  <button className="btn btn-outline-dark border-0 py-2" type="button" id="button-addon2">
-                    <i className="fas fa-plus"></i>
-                  </button>
-                </div>
-              </div>
+              <select id="qtySelect" className="form-select form-select border-0 text-center my-auto shadow-none bg-light"
+                value={cartQty}
+                onChange={(e) => setCartQty(e.target.value)}
+              >
+                {Array.from({length:10}).map((_, index) => {
+                  return(
+                    <option key={index} value={index + 1}>
+                      {index +1}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
             <div className="col-6">
-              <a href="./checkout.html" className="text-nowrap btn btn-dark w-100 py-2">加入購物車</a>
+              <button type="button" className="text-nowrap btn btn-dark w-100 py-2" onClick={() => addCartItem(product.id, cartQty)}>加入購物車</button>
             </div>
           </div>
         </div>
