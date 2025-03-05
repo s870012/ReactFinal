@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSelector, useDispatch } from "react-redux"
 
@@ -48,10 +48,24 @@ function Cart() {
     }
   }
 
+  const [coupon, setCoupon] = useState('')
+  const handleCoupon = async() => {
+    try {
+      await axios.post(`${url}/api/${path}/coupon`, {
+        data:{
+          code:parseInt(coupon)
+        }
+      })
+      console.log('success', coupon);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return(<>
     <div className="container">
       <div className="mt-3">
-        <div className="mt-5">
+        <div className="mb-5">
           <ul className="list-unstyled mb-0 ms-md-auto d-flex align-items-center justify-content-between justify-content-md-center w-100 mt-md-0 mt-4">
             <li className="me-md-6 me-3 position-relative custom-step-line">
               <i className="bi bi-check-circle-fill d-md-inline d-block text-center me-1"></i>
@@ -72,7 +86,7 @@ function Cart() {
             <h4 className="text-muted mb-3">您的購物車中沒有商品</h4>
             <Link type="button" className="btn btn-outline-dark" to="/products">去購物</Link>          
           </div>
-        ) :(
+        ) : (
           <div>
             <h3 className="fw-bold mt-3 mb-4">您的購物車</h3>
             <div className="row">
@@ -94,7 +108,7 @@ function Cart() {
                             <Link to={`/product/${cartItem.product.id}`}><p className="text-dark mb-0 fw-bold ms-3 d-inline-block">{cartItem.product.title}</p></Link>
                           </th>
                           <td className="border-0 text-center align-middle" style={{maxWidth: "160px"}}>
-                            <div className="btn-group">
+                            <div>
                               <button className={`btn btn-outline-dark border-0 py-2 ${cartItem.qty === 1 && 'disabled'}`} type="button" id="button-addon1"
                               onClick={() => editCartItem(cartItem.id, cartItem.product.id, cartItem.qty - 1)}>
                                 <i className="bi bi-dash-lg"></i>
@@ -122,9 +136,9 @@ function Cart() {
                   </tbody>
                 </table>
                 <div className="input-group w-50 mb-3">
-                  <input type="text" className="form-control rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none" placeholder="Coupon Code" aria-label="Recipient's username" aria-describedby="button-addon2"/>
+                  <input type="text" className="form-control rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none" placeholder="Coupon Code" aria-label="Recipient's username" aria-describedby="button-addon2" value={coupon} onChange={(e) => setCoupon(e.target.value)}/>
                   <div className="input-group-append">
-                    <button className="btn btn-outline-dark border-bottom border-top-0 border-start-0 border-end-0 rounded-0" type="button" id="button-addon2"><i className="bi bi-send"></i></button>
+                    <button className="btn btn-outline-dark border-bottom border-top-0 border-start-0 border-end-0 rounded-0" type="button" id="button-addon2" onClick={() => handleCoupon()} ><i className="bi bi-send"></i></button>
                   </div>
                 </div>
                 <div className="text-end mb-3">
