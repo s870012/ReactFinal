@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSelector, useDispatch } from "react-redux"
 
-import { asyncDeleteCart, asyncGetCart } from "../../slices/cartSlice";
+import { asyncGetCart } from "../../slices/cartSlice";
 import cart from "../../assets/images/cart.png"
 
 const url = import.meta.env.VITE_BASE_URL; 
@@ -18,10 +18,6 @@ function Cart() {
       dispatch(asyncGetCart())
     })()
   },[dispatch])
-  
-  const deleteCart = () => {
-    dispatch(asyncDeleteCart())
-  }
 
   //編輯購物車產品數量
   const editCartItem = async(id, product_id, qty) => {
@@ -140,9 +136,6 @@ function Cart() {
                   <div className="input-group-append">
                     <button className="btn btn-outline-dark border-bottom border-top-0 border-start-0 border-end-0 rounded-0" type="button" id="button-addon2" onClick={() => handleCoupon()} ><i className="bi bi-send"></i></button>
                   </div>
-                </div>
-                <div className="text-end mb-3">
-                  <button type="button" className="btn btn-danger" onClick={deleteCart}>刪除購物車</button>
                 </div>
               </div>
               <div className="col-md-4">
