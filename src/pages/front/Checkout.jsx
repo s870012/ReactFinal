@@ -1,12 +1,17 @@
+import axios from "axios";
+
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { asyncGetCart } from "../../slices/cartSlice";
 
+const url = import.meta.env.VITE_BASE_URL; 
+const path = import.meta.env.VITE_API_PATH; 
 function Checkout () {
   const cartData = useSelector((state) => state.cart.data)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async() => {
@@ -18,10 +23,30 @@ function Checkout () {
     register,
     handleSubmit,
     formState : { errors },
+    reset
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
+    
+    const {payment, message, checked, ...user} = data;
+    const orderInfo = {
+      data:{
+        user,
+        message
+      }
+    }
+    handleOrder(orderInfo)
+  }
+
+  const handleOrder = async(data) => {
+    try {
+      await axios.post(`${url}/api/${path}/order`, data)
+      navigate('/success');
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
   }
   
   return(<>
@@ -141,7 +166,7 @@ function Checkout () {
                   {...register('message')}></textarea>
                 </div>
                 <div className="d-flex flex-column-reverse flex-md-row mt-4 justify-content-between align-items-md-center align-items-end w-100">
-                  <Link className="text-dark mt-md-0 mt-3" to="/cart"><i className="bi bi-chevron-left me-2"></i> 回上一頁</Link>
+                  <Link className="text-dark mt-md-0 mt-3 text-decoration-none" to="/cart"><i className="bi bi-chevron-left me-2"></i> 回上一頁</Link>
                   <button type="submit" className="btn btn-dark py-3 px-7 rounded-0">送出訂單</button>
                 </div>
               </form>
