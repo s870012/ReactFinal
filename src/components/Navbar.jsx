@@ -6,7 +6,7 @@ function Navbar (){
     <div>
       <div className="container d-flex flex-column">
         <nav className="navbar navbar-expand-lg navbar-light">
-          <a className="navbar-brand" href="./index.html"><img src={logo} alt="logo" style={{height:"40px"}}/></a>
+          <NavLink className="navbar-brand" to="/"><img src={logo} alt="logo" style={{height:"40px"}}/></NavLink>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

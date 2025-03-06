@@ -4,6 +4,7 @@ import Products from "../pages/front/Products"
 import ProductDetail from "../pages/front/ProductDetail"
 import Cart from "../pages/front/Cart"
 import Checkout from "../pages/front/Checkout"
+import CheckoutSuccess from "../pages/front/CheckoutSuccess"
 
 const routes=[
   {
@@ -28,10 +29,13 @@ const routes=[
       },
       {
         path:'cart/checkout',
-        element: <Checkout/>
-      }
+        element:<Checkout/>
+      },
     ]
-    
+  },
+  {
+    path:'success',
+    element:<CheckoutSuccess />
   }
 ]
 

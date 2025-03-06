@@ -1,6 +1,19 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router";
+import { asyncGetCart } from "../../slices/cartSlice";
 
 function Checkout () {
+  const cartData = useSelector((state) => state.cart.data)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async() => {
+      dispatch(asyncGetCart())
+    })()
+  }, [ dispatch ])
+
   const {
     register,
     handleSubmit,
@@ -35,19 +48,19 @@ function Checkout () {
               <h4 className="fw-bold border-bottom pb-2">付款方式</h4>
               <form>
                 <div className="form-check mb-2">
-                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked
+                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="信用卡" defaultChecked
                   {...register("payment")}/>
-                  <label className="form-check-label text-muted" htmlFor="gridRadios1">信用卡支付
+                  <label className="form-check-label text-muted" htmlFor="gridRadios1">信用卡
                   </label>
                 </div>
                 <div className="form-check mb-2">
-                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2"
+                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="ATM"
                   {...register("payment")}/>
                   <label className="form-check-label text-muted" htmlFor="gridRadios2">ATM轉帳
                   </label>
                 </div>
                 <div className="form-check mb-2">
-                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3"
+                  <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="電子支付"
                   {...register("payment")}/>
                   <label className="form-check-label text-muted" htmlFor="gridRadios3">電子支付
                   </label>
@@ -120,54 +133,45 @@ function Checkout () {
                 <div className="form-group form-check mb-3">
                   <input type="checkbox" className="form-check-input rounded-0" id="ContactLorem"
                   {...register("checked")}/>
-                  <label className="form-check-label fs-7" htmlFor="ContactLorem">訂閱Black Heart Bakery電子報，第一時間收到優惠資訊</label>
+                  <label className="form-check-label fs-7" htmlFor="ContactLorem">訂閱Black Heart Bakery電子報，第一時間收到更多優惠資訊</label>
                 </div>
                 <div>
                   <label htmlFor="message" className="form-label">意見回饋</label>
-                  <textarea id="message" className="form-control" cols="30" rows="8"
+                  <textarea id="message" className="form-control" cols="30" rows="5"
                   {...register('message')}></textarea>
                 </div>
                 <div className="d-flex flex-column-reverse flex-md-row mt-4 justify-content-between align-items-md-center align-items-end w-100">
-                  <a href="./product.html" className="text-dark mt-md-0 mt-3"><i className="bi bi-chevron-left me-2"></i> 回上一頁</a>
+                  <Link className="text-dark mt-md-0 mt-3" to="/cart"><i className="bi bi-chevron-left me-2"></i> 回上一頁</Link>
                   <button type="submit" className="btn btn-dark py-3 px-7 rounded-0">送出訂單</button>
                 </div>
               </form>
             </div>
           </div>
           <div className="col-md-4">
-            <div className="border p-4 mb-4">
+            <div className="bg-white border p-4 mb-4">
               <h4 className="mb-4">訂單明細</h4>
-              <div className="d-flex">
-                <img src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80" alt="" className="me-2" style={{width: "48px", height: "48px", objectFit: "cover"}}/>
-                <div className="w-100">
-                  <div className="d-flex justify-content-between fw-bold">
-                    <p className="mb-0">Lorem ipsum</p>
-                    <p className="mb-0">x10</p>
+              {cartData?.carts?.map((cartItem) => {
+                return(
+                  <div key={cartItem.id} className="d-flex mt-2">
+                    <img src={cartItem.product.imageUrl} alt="" className="me-2" style={{width: "48px", height: "48px", objectFit: "cover"}}/>
+                    <div className="w-100">
+                      <div className="d-flex justify-content-between fw-bold">
+                        <p className="mb-0">{cartItem.product.title}</p>
+                        <p className="mb-0">x{cartItem.qty}</p>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <p className="text-muted mb-0"><small>NT${cartItem.product.price}</small></p>
+                        <p className="mb-0">NT${cartItem.product.price * cartItem.qty}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="d-flex justify-content-between">
-                    <p className="text-muted mb-0"><small>NT$12,000</small></p>
-                    <p className="mb-0">NT$12,000</p>
-                  </div>
-                </div>
-              </div>
-              <div className="d-flex mt-2">
-                <img src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80" alt="" className="me-2" style={{width: "48px", height: "48px", objectFit: "cover"}}/>
-                <div className="w-100">
-                  <div className="d-flex justify-content-between fw-bold">
-                    <p className="mb-0">Lorem ipsum</p>
-                    <p className="mb-0">x10</p>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <p className="text-muted mb-0"><small>NT$12,000</small></p>
-                    <p className="mb-0">NT$12,000</p>
-                  </div>
-                </div>
-              </div>
+                )
+              })}
               <table className="table mt-4 border-top border-bottom text-muted">
                 <tbody>
                   <tr>
-                    <th scope="row" className="border-0 px-0 pt-4 font-weight-normal">Subtotal</th>
-                    <td className="text-end border-0 px-0 pt-4">NT$24,000</td>
+                    <th scope="row" className="border-0 px-0 pt-4 font-weight-normal">小計</th>
+                    <td className="text-end border-0 px-0 pt-4">NT${cartData.total}</td>
                   </tr>
                   <tr>
                     <th scope="row" className="border-0 px-0 pt-0 pb-4 font-weight-normal">Payment</th>
@@ -176,8 +180,8 @@ function Checkout () {
                 </tbody>
               </table>
               <div className="d-flex justify-content-between mt-4">
-                <p className="mb-0 h4 fw-bold">Total</p>
-                <p className="mb-0 h4 fw-bold">NT$24,000</p>
+                <p className="mb-0 h4 fw-bold">總價</p>
+                <p className="mb-0 h4 fw-bold">NT${cartData.final_total}</p>
               </div>
             </div>
           </div>
