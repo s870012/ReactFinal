@@ -1,16 +1,23 @@
-import logo from "../assets/images/logo.png"
+import logoWhite from "../assets/images/logo_white.png"
 import { Link } from "react-router"
 
 function Footer (){
   return (<>
     <div className="bg-dark py-5">
       <div className="container">
-        <div className="d-flex align-items-center justify-content-between text-white mb-md-7 mb-4">
-          <Link className="text-white h4" to="/"><img src={logo} alt="logo" width="160px"/></Link>
+        <div className="d-flex align-items-start justify-content-between text-white mb-md-7 mb-4">
+          <div className="d-flex">
+            <Link className="text-white h4 me-3" to="/"><img src={logoWhite} alt="logo" width="160px"/></Link>
+            <ul>
+              <li className="mb-2 list-unstyled">關於我們</li>
+              <li className="mb-2 list-unstyled">最新消息</li>
+              <Link className="text-white text-decoration-none" to="/login">登入後台</Link>
+            </ul>
+          </div>
           <ul className="d-flex list-unstyled mb-0 h4">
-            <li><a href="#" className="text-white mx-3"><i className="fab fa-facebook"></i></a></li>
-            <li><a href="#" className="text-white mx-3"><i className="fab fa-instagram"></i></a></li>
-            <li><a href="#" className="text-white ms-3"><i className="fab fa-line"></i></a></li>
+            <li><a href="#" className="text-white mx-3"><i className="bi bi-facebook"></i></a></li>
+            <li><a href="#" className="text-white mx-3"><i className="bi bi-instagram"></i></a></li>
+            <li><a href="#" className="text-white ms-3"><i className="bi bi-line"></i></a></li>
           </ul>
         </div>
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end align-items-start text-white">

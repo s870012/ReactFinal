@@ -1,26 +1,34 @@
-import { NavLink, Outlet } from "react-router"
+import axios from "axios";
 
+import { Outlet, useNavigate } from "react-router"
+import { useEffect } from "react";
+import AdminNavbar from "./components/AdminNavbar"
 
+const url = import.meta.env.VITE_BASE_URL;
 function AdminLayout () {
+  const navigate = useNavigate();
+
+  const checkLogin = async() => {
+    try {
+      await axios.post(`${url}/api/user/check`)
+      navigate('/admin/products')
+    } catch (error) {
+      console.log(error);
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+      "$1",
+    );
+    axios.defaults.headers.common['Authorization'] = `${token}`;
+    checkLogin();
+  },[])
+
   return(<>
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-      <div className="container">
-        <div className="navbar-brand" href="#">後台管理</div>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-sm-0">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/products">產品管理</NavLink> 
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/order">訂單管理</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/">登出</NavLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <AdminNavbar />
     <Outlet />
   </>)
 }

@@ -63,7 +63,7 @@ function Products (){
               return(
                 <div key={product.id} className="col-md-6">
                   <div className="card border-0 mb-4 position-relative position-relative">
-                    <img src={product.imageUrl} className="card-img-top rounded-0 object-fit-cover" height="400px" alt="productImage"/>
+                    <img src={product.imageUrl} className="card-img-top rounded-0 object-fit-cover" height="350px" alt="productImage"/>
                     <a href="#" className="text-dark">
                       <i className="far fa-heart position-absolute" style={{right: "16px", top: "16px"}}></i>
                     </a>
