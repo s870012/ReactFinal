@@ -11,7 +11,6 @@ function AdminLayout () {
   const checkLogin = async() => {
     try {
       await axios.post(`${url}/api/user/check`)
-      navigate('/admin/products')
     } catch (error) {
       console.log(error);
       navigate('/')

@@ -21,22 +21,12 @@ function AdminProducts (){
     }
   }
 
-  const checkLogin = async() => {
-    try {
-      await axios.post(`${url}/api/user/check`)
-      getProducts();
-    } catch (error) {
-      console.dir(error);
-      navigate('/')
-    }
-  }
-
   useEffect(()=>{
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,"$1",
     );
     axios.defaults.headers.common['Authorization'] = `${token}`;
-    checkLogin();
+    getProducts();
   },[])
 
 

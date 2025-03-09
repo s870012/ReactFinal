@@ -12,7 +12,7 @@ export const orderSlice = createSlice({
   reducers:{
     getOrders(state, { payload }){
       state.data = payload
-    }
+    },
   }
 })
 
