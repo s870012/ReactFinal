@@ -1,13 +1,14 @@
 import axios from "axios";
+import * as bootstrap from "bootstrap"
 
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useState, useEffect, useRef } from "react";
 import Pagination from "../../components/Pagination";
+import ProductsModal from "../../components/ProductsModal";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
 function AdminProducts (){
-  const navigate = useNavigate();
+  //products
   const [products, setProducts] = useState([])
   const [pagination, setPagination] = useState({})
 
@@ -28,13 +29,57 @@ function AdminProducts (){
     axios.defaults.headers.common['Authorization'] = `${token}`;
     getProducts();
   },[])
+  
+  //products for Modal
+  const [tempProduct, setTempProduct] = useState({
+    id:"",
+    imageUrl: "",
+    title: "",
+    category: "",
+    unit: "",
+    origin_price: "",
+    price: "",
+    description: "",
+    content: "",
+    is_enabled: 0,
+    imagesUrl: []
+  })
 
+  const controlModal = useRef(null);
+  // editModal
+  const editModalRef = useRef(null);
+  const openEditModal = (product, type) => {
+    if (type == 'edit'){
+      setTempProduct(product)
+    } else {
+      setTempProduct({
+        id:"",
+        imageUrl: "",
+        title: "",
+        category: "",
+        unit: "",
+        origin_price: "",
+        price: "",
+        description: "",
+        content: "",
+        is_enabled: 0,
+        imagesUrl: []
+      })
+    }
+    controlModal.current = new bootstrap.Modal(editModalRef.current)
+    controlModal.current.show();
+  }
+
+  // close Modal
+  const closeModal = () =>{
+    controlModal.current.hide();
+  }
 
   return(<>
     <div>
       <div className="container">
         <div className="text-start mt-4">
-          <button type="button" className="btn btn-primary me-3" >建立新的產品</button>
+          <button type="button" className="btn btn-primary me-3" onClick={() => openEditModal()}>建立新的產品</button>
         </div>
         <table className="table mt-4">
           <thead>
@@ -61,7 +106,7 @@ function AdminProducts (){
                 </td>
                 <td>
                   <div className="btn-group">
-                    <button type="button" className="btn btn-outline-primary btn-sm" >
+                    <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => openEditModal(product, 'edit')}>
                       編輯
                     </button>
                     <button type="button" className="btn btn-outline-danger btn-sm" >
@@ -76,6 +121,7 @@ function AdminProducts (){
         <Pagination pagination={pagination} getProducts={getProducts} products={products}/>
       </div>
     </div>
+    <ProductsModal tempProduct={tempProduct} editModalRef={editModalRef} closeModal={closeModal}/>
   </>)
 }
 
