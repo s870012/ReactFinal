@@ -28,6 +28,9 @@ function AdminNavbar(){
               <NavLink className="nav-link" to="/admin/orders">訂單管理</NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className="nav-link" to="/admin/coupon">優惠券管理</NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink className="nav-link" to="/" onClick={handleLogout}>登出</NavLink>
             </li>
           </ul>

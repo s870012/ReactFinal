@@ -10,6 +10,7 @@ import Login from "../pages/front/Login.jsx"
 import AdminLayout from "../AdminLayout"
 import AdminOrders from "../pages/admin/AdminOrders"
 import AdminProducts from "../pages/admin/AdminProducts"
+import AdminCoupon from "../pages/admin/AdminCoupon.jsx"
 
 import NotFound from "../pages/NotFound.jsx"
 
@@ -59,6 +60,10 @@ const routes=[
       {
         path:'orders',
         element:<AdminOrders/>
+      },
+      {
+        path:'coupon',
+        element:<AdminCoupon/>
       }
     ]
   },
