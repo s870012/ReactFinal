@@ -4,6 +4,7 @@ import * as bootstrap from "bootstrap"
 import { useState, useEffect, useRef } from "react";
 import Pagination from "../../components/Pagination";
 import ProductsModal from "../../components/ProductsModal";
+import DeleteModal from "../../components/DeleteModal";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
@@ -32,7 +33,7 @@ function AdminProducts (){
   
   //products for Modal
   const [tempProduct, setTempProduct] = useState({
-    id:"",
+    id: "",
     imageUrl: "",
     title: "",
     category: "",
@@ -40,9 +41,9 @@ function AdminProducts (){
     origin_price: "",
     price: "",
     description: "",
-    content: "",
-    is_enabled: 0,
-    imagesUrl: []
+    content:"",
+    is_enabled: false,
+    imagesUrl: [],
   })
 
   const controlModal = useRef(null);
@@ -53,21 +54,131 @@ function AdminProducts (){
       setTempProduct(product)
     } else {
       setTempProduct({
-        id:"",
-        imageUrl: "",
-        title: "",
-        category: "",
-        unit: "",
-        origin_price: "",
-        price: "",
-        description: "",
-        content: "",
-        is_enabled: 0,
-        imagesUrl: []
+        id: product.id || "",
+        imageUrl: product.imageUrl || "",
+        title: product.title || "",
+        category: product.category || "",
+        unit: product.unit || "",
+        origin_price: product.origin_price || "",
+        price: product.price || "",
+        description: product.description || "",
+        content: product.content || "",
+        is_enabled: product.is_enabled || false,
+        imagesUrl: product.imagesUrl || [],
       })
     }
     controlModal.current = new bootstrap.Modal(editModalRef.current)
     controlModal.current.show();
+  }
+
+  const controlModalInput = (e) =>{
+    const {id, value, type, checked} = e.target;
+    setTempProduct({
+      ...tempProduct,
+      [id]:type =='checkbox' ? checked : value
+    })
+  }
+
+  // edit product
+  const editProduct = async () => {
+    const productData ={
+      data:{
+        ...tempProduct,
+        origin_price:Number(tempProduct.origin_price),
+        price:Number(tempProduct.price),
+        is_enabled:tempProduct.is_enabled? 1 : 0,
+        imagesUrl:tempProduct.imagesUrl
+      }
+    }
+    try {
+      let res;
+      if(tempProduct.id ===''){
+        res = await axios.post(`${url}/api/${path}/admin/product`, productData)
+        console.log(res.data)
+      } else {
+        res = await axios.put(`${url}/api/${path}/admin/product/${tempProduct.id}`, productData)
+        console.log(res.data)
+      }
+      getProducts();
+      controlModal.current.hide();
+    } catch (error) {
+      if(tempProduct.id===''){
+        console.log('新增產品失敗', error);
+      } else {
+        console.log('編輯產品失敗', error);
+      };
+    } 
+  };
+
+  // image
+  const controlImgInput = (e, index) => {
+    const { value } = e.target;
+    const newImages = [...tempProduct.imagesUrl];
+    newImages[index] = value;
+    setTempProduct(
+      {...tempProduct,
+      imagesUrl: newImages
+      }
+    )
+  }
+  
+  const addImg = () => {
+    if(tempProduct.imagesUrl.length < 5 && 
+      tempProduct.imagesUrl[tempProduct.imagesUrl.length] !== ''){
+        setTempProduct((product) => ({
+          ...product,
+          imagesUrl: [...product.imagesUrl, ""],
+        }));
+      } else {
+        alert('圖片上限為五張')
+      }
+  };
+
+  const removeImg = () => {
+    if(tempProduct.imagesUrl.length > 1){
+      setTempProduct((product) => {
+        const newImages = [...product.imagesUrl];
+        newImages.pop();
+        return { ...product, imagesUrl: newImages };
+      });
+    } else {
+      alert('圖片至少要有一張')
+    }
+  } 
+
+  // upLoad image
+  const controlFileChange = async(e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file-to-upload', file);
+    try {
+      const res = await axios.post(`${url}/api/${path}/admin/upload`, formData)
+      setTempProduct({
+        ...tempProduct,
+        imageUrl: res.data.imageUrl
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // deleteModal
+  const deleteRef = useRef(null);
+  const deleteModal = (product) => {
+    controlModal.current = new bootstrap.Modal(deleteRef.current)
+    controlModal.current.show();
+    setTempProduct(product)
+  }
+
+  const deleteProduct = async () =>{
+    try {
+      await axios.delete(`${url}/api/${path}/admin/product/${tempProduct.id}`)
+      controlModal.current.hide();
+      getProducts();
+    } catch (error) {
+
+      console.log(error);
+    }
   }
 
   // close Modal
@@ -79,7 +190,7 @@ function AdminProducts (){
     <div>
       <div className="container">
         <div className="text-start mt-4">
-          <button type="button" className="btn btn-primary me-3" onClick={() => openEditModal()}>建立新的產品</button>
+          <button type="button" className="btn btn-primary me-3" onClick={() => openEditModal(products, 'create')}>建立新的產品</button>
         </div>
         <table className="table mt-4">
           <thead>
@@ -109,7 +220,7 @@ function AdminProducts (){
                     <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => openEditModal(product, 'edit')}>
                       編輯
                     </button>
-                    <button type="button" className="btn btn-outline-danger btn-sm" >
+                    <button type="button" className="btn btn-outline-danger btn-sm" onClick={() => deleteModal(product)}>
                       刪除
                     </button>
                   </div>
@@ -121,7 +232,24 @@ function AdminProducts (){
         <Pagination pagination={pagination} getProducts={getProducts} products={products}/>
       </div>
     </div>
-    <ProductsModal tempProduct={tempProduct} editModalRef={editModalRef} closeModal={closeModal}/>
+    <ProductsModal
+      editModalRef={editModalRef} 
+      closeModal={closeModal} 
+      tempProduct={tempProduct} 
+      controlModalInput={controlModalInput} 
+      editProduct={editProduct}
+      controlImgInput={controlImgInput}
+      addImg={addImg}
+      removeImg={removeImg}
+      controlFileChange={controlFileChange}
+    />
+
+    <DeleteModal
+      deleteRef={deleteRef} 
+      closeModal={closeModal} 
+      tempProduct={tempProduct} 
+      deleteProduct={deleteProduct}
+    />
   </>)
 }
 
