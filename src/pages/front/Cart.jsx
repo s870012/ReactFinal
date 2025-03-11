@@ -28,7 +28,11 @@ function Cart() {
           qty:Number(qty)
         }
       })
-      dispatch(asyncGetCart())
+      if (coupon.success === true){
+        handleCoupon();
+      } else {
+        dispatch(asyncGetCart())
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,21 +42,29 @@ function Cart() {
   const deleteCartItem = async(id) => {
     try {
       await axios.delete(`${url}/api/${path}/cart/${id}`)
-      dispatch(asyncGetCart())
+      if (coupon.success === true){
+        handleCoupon();
+      } else {
+        dispatch(asyncGetCart())
+      }
     } catch (error) {
       console.log(error);
     }
   }
 
-  const [coupon, setCoupon] = useState('')
+  const [couponCode, setCouponCode] = useState('')
+  const [coupon, setCoupon] =useState([])
+
   const handleCoupon = async() => {
+    const data = {
+      data:{
+        code:couponCode
+      }
+    }
     try {
-      await axios.post(`${url}/api/${path}/coupon`, {
-        data:{
-          code:parseInt(coupon)
-        }
-      })
-      console.log('success', coupon);
+      const res = await axios.post(`${url}/api/${path}/coupon`, data)
+      setCoupon(res.data)
+      dispatch(asyncGetCart())
     } catch (error) {
       console.log(error);
     }
@@ -114,7 +126,6 @@ function Cart() {
                               onClick={() => editCartItem(cartItem.id, cartItem.product.id, cartItem.qty + 1)}>
                                 <i className="bi bi-plus-lg"></i>
                               </button>
-                              
                             </div>
                           </td>
                           <td className="border-0 align-middle text-center">
@@ -132,9 +143,10 @@ function Cart() {
                   </tbody>
                 </table>
                 <div className="input-group w-50 mb-3">
-                  <input type="text" className="form-control rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none" placeholder="Coupon Code" aria-label="Recipient's username" aria-describedby="button-addon2" value={coupon} onChange={(e) => setCoupon(e.target.value)}/>
+                  <input type="text" className="form-control rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none disabled" placeholder="請輸入折扣碼" aria-label="Recipient's username" aria-describedby="button-addon2"
+                  value={couponCode} onChange={(e) => setCouponCode(e.target.value)} {...coupon === true && 'disabled'}/>
                   <div className="input-group-append">
-                    <button className="btn btn-outline-dark border-bottom border-top-0 border-start-0 border-end-0 rounded-0" type="button" id="button-addon2" onClick={() => handleCoupon()} ><i className="bi bi-send"></i></button>
+                    <button className={`btn btn-outline-dark border-bottom border-top-0 border-start-0 border-end-0 rounded-0 ${coupon.success === true && 'disabled'}`} type="button" id="button-addon2" onClick={() => handleCoupon()} ><i className="bi bi-send-fill"></i></button>
                   </div>
                 </div>
               </div>
@@ -148,14 +160,14 @@ function Cart() {
                         <td className="text-end border-0 px-0 pt-4">NT${cartData.total}</td>
                       </tr>
                       <tr>
-                        <th scope="row" className="border-0 px-0 pt-0 pb-4 font-weight-normal">付款方式</th>
-                        <td className="text-end border-0 px-0 pt-0 pb-4">ApplePay</td>
+                        <th scope="row" className="border-0 px-0 pt-0 pb-4 font-weight-normal">優惠</th>
+                        <td className="text-end border-0 px-0 pt-0 pb-4">{coupon.success === true ? `-NT$${cartData.total - Math.round(cartData.final_total)}` : '0'}</td>
                       </tr>
                     </tbody>
                   </table>
                   <div className="d-flex justify-content-between mt-4">
                     <p className="mb-0 h4 fw-bold">總價</p>
-                    <p className="mb-0 h4 fw-bold">NT${cartData.final_total}</p>
+                    <p className="mb-0 h4 fw-bold">NT${Math.round(cartData.final_total)}</p>
                   </div>
                   <Link href="./checkout.html"className="btn btn-dark w-100 mt-4" to="/cart/checkout">下一步</Link>
                 </div>

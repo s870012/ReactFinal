@@ -159,22 +159,28 @@ function ProductsModal ({
   </>)
 }
 
-ProductsModal.prototype = {
+ProductsModal.propTypes = {
   tempProduct: PropTypes.shape({
     id: PropTypes.string,
     imageUrl: PropTypes.string,
     title: PropTypes.string,
     category: PropTypes.string,
     unit: PropTypes.string,
-    originPrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    origin_price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     description: PropTypes.string,
     content: PropTypes.string,
-    isEnabled: PropTypes.bool,
+    is_enabled: PropTypes.bool,
     imagesUrl: PropTypes.arrayOf(PropTypes.string),
   }).isRequired, 
   closeModal: PropTypes.func.isRequired,
-  editModalRef: PropTypes.obj
+  controlModalInput: PropTypes.func.isRequired,
+  editProduct: PropTypes.func.isRequired,
+  controlImgInput: PropTypes.func.isRequired, 
+  addImg: PropTypes.func.isRequired,
+  removeImg: PropTypes.func.isRequired,
+  controlFileChange: PropTypes.func.isRequired,
+  editModalRef: PropTypes.object
 }  
 
 export default ProductsModal

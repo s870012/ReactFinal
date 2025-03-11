@@ -206,7 +206,7 @@ function Checkout () {
               </table>
               <div className="d-flex justify-content-between mt-4">
                 <p className="mb-0 h4 fw-bold">總價</p>
-                <p className="mb-0 h4 fw-bold">NT${cartData.final_total}</p>
+                <p className="mb-0 h4 fw-bold">NT${Math.round(cartData.final_total)}</p>
               </div>
             </div>
           </div>

@@ -11,8 +11,6 @@ function AdminOrders(){
   const getAdminOrders = async(page = 1) => {
     try {
       const res = await axios.get(`${url}/api/${path}/admin/orders?page=${page}`)
-      console.log(res.data.orders);
-      
       setOrdersData(res.data.orders)
       // setPagination(res.data.pagination)
     } catch (error) {
