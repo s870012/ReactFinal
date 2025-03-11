@@ -3,8 +3,6 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router"
 
-import Search from "../../components/Search"
-
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
 function ProductDetail (){
@@ -118,7 +116,6 @@ function ProductDetail (){
         </div>
       </div>
     </div>
-    <Search/>
   </>)
 }
 

@@ -1,21 +1,35 @@
 import axios from "axios"
 
 import { Link } from "react-router"
-import { useEffect, useState } from "react"
+import { useEffect,  useState } from "react"
 
 import Pagination from "../../components/Pagination"
-import Search from "../../components/Search"
+
 
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
 function Products (){
+  const [allProducts, setAllProducts] =useState([]);
   const [products, setProducts] = useState([]);
-  const [pagination, setPagination] = useState({});
   
-  //取得產品
-  const getProducts = async(page = 1) => {
+  const [pagination, setPagination] = useState({});
+  const [selectCategory, setSelectCategory] = useState('全部產品')
+
+  useEffect(() => {
+    const getAllProducts = async() => {
+      try {
+        const res = await axios.get(`${url}/api/${path}/products/all`)
+        setAllProducts(res.data.products)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllProducts();
+  },[])
+
+  const getProducts = async(page =1) => {
     try {
-      const res = await axios.get(`${url}/api/${path}/products?page=${page}`)
+      const res = await axios.get(`${url}/api/${path}/products?category=${selectCategory === '全部產品' ? '' : selectCategory}&page=${page}`)
       setProducts(res.data.products)
       setPagination(res.data.pagination)
     } catch (error) {
@@ -25,14 +39,15 @@ function Products (){
 
   useEffect(() => {
     getProducts()
-  },[])
+  }, [selectCategory])
+
+  const categories = ['全部產品', ...new Set(allProducts.map((product) => product.category))] 
 
   return(<>
     <div className="position-relative d-flex align-items-center justify-content-center" style={{minHeight: "400px"}}>
       <div className="position-absolute" style={{top:"0", bottom: "0", left: "0", right: "0", backgroundImage: `url(https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,backgroundSize: "cover", backgroundPosition: "center center", opacity: "0.3"}}></div>
       <h2 className="fs-1 fw-bold">新鮮出爐 溫暖每一天</h2>
     </div>
-    <Search/>
     <div className="container mt-md-5 mt-3 mb-7">
       <div className="row">
         <div className="col-md-3">
@@ -47,11 +62,11 @@ function Products (){
               </div>
               <div className="card-body py-0">
                 <ul className="list-unstyled">
-                  <li className="hover py-2 d-block text-muted">歐式麵包</li>
-                  <li className="hover py-2 d-block text-muted">甜點麵包</li>
-                  <li className="hover py-2 d-block text-muted">鹹味麵包</li>
-                  <li className="hover py-2 d-block text-muted">日式麵包</li>
-                  <li className="hover py-2 d-block text-muted">特色麵包</li>
+                  {categories.map((category) => (
+                    <li  key={category}>
+                      <button type="button" className="btn border-none py-2 d-block text-muted" onClick={() => setSelectCategory(category)}>{category}</button>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
