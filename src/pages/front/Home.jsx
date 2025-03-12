@@ -1,3 +1,6 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import 'swiper/css';
 
 function Home (){
   return(<>
@@ -108,31 +111,55 @@ function Home (){
           <div className="col-md-8 d-flex">
             <img src="https://media.istockphoto.com/id/517059150/photo/baker-holding-baguettes-at-the-manufacturing.jpg?s=612x612&w=0&k=20&c=3rtryROS8DEkkvtiD1_z-3O644Tv8-lumUPxGsCfhlw=" alt="chef" className="rounded-circle me-5" style={{width: '160px', height: '160px', objectFit: 'cover'}}/>
             <div className="d-flex flex-column">
-              <p className="h5"><p className="">Black Heart</p>以一顆對食物的熱愛與敬意，踏入了烘焙的世界。將每一塊麵包都視為藝術品，力求每一口都能帶來溫暖與幸福。</p>
+              <p className="h5 fw-bold">Black Heart</p>
+              <p className="h5">以一顆對食物的熱愛與敬意，踏入了烘焙的世界。將每一塊麵包都視為藝術品，力求每一口都能帶來溫暖與幸福。</p>
               <p className="mt-auto text-muted">Black Heart — 烘焙師傅</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div className="container my-7">
-      <div className="row">
-        <div className="col-md-4">
-          <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '48px', height: '48px', objectFit: 'cover'}}/>
-          <h4 className="mt-4">Lorem ipsum</h4>
-          <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-        </div>
-        <div className="col-md-4">
-          <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '48px', height: '48px', objectFit: 'cover'}}/>
-          <h4 className="mt-4">Lorem ipsum</h4>
-          <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-        </div>
-        <div className="col-md-4">
-          <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '48px', height: '48px', objectFit: 'cover'}}/>
-          <h4 className="mt-4">Lorem ipsum</h4>
-          <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-        </div>
-      </div>
+    <div className="container py-5">
+      <Swiper
+        slidesPerView={3}
+        spaceBetween={24}
+        >
+        <SwiperSlide>
+          <div className="text-center">
+            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">Lorem ipsum</h4>
+            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="text-center">
+            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">Lorem ipsum</h4>
+            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="text-center"> 
+            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">Lorem ipsum</h4>
+            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="text-center">
+            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">Lorem ipsum</h4>
+            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="text-center">
+            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">Lorem ipsum</h4>
+            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+          </div>
+        </SwiperSlide>
+      </Swiper>
     </div>
     <div className="bg-light py-7">
       <div className="container">
