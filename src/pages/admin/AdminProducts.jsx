@@ -2,6 +2,10 @@ import axios from "axios";
 import * as bootstrap from "bootstrap"
 
 import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { createMessage } from "../../slices/messageSlice";
+
+import MessageToast from "../../components/MessageToast";
 import Pagination from "../../components/Pagination";
 import ProductsModal from "../../components/ProductsModal";
 import DeleteModal from "../../components/DeleteModal";
@@ -12,6 +16,8 @@ function AdminProducts (){
   //products
   const [products, setProducts] = useState([])
   const [pagination, setPagination] = useState({})
+
+  const dispatch = useDispatch()
 
   const getProducts = async(page=1) => {
     try {
@@ -94,10 +100,17 @@ function AdminProducts (){
       let res;
       if(tempProduct.id ===''){
         res = await axios.post(`${url}/api/${path}/admin/product`, productData)
-        console.log(res.data)
+        dispatch(createMessage({
+          text:'新增產品成功',
+          status:'success'
+        }))
       } else {
         res = await axios.put(`${url}/api/${path}/admin/product/${tempProduct.id}`, productData)
         console.log(res.data)
+        dispatch(createMessage({
+          text:'編輯產品成功',
+          status:'success'
+        }))
       }
       getProducts();
       controlModal.current.hide();
@@ -174,9 +187,12 @@ function AdminProducts (){
     try {
       await axios.delete(`${url}/api/${path}/admin/product/${tempProduct.id}`)
       controlModal.current.hide();
+      dispatch(createMessage({
+        text:'刪除產品成功',
+        status:'success'
+      }))
       getProducts();
     } catch (error) {
-
       console.log(error);
     }
   }
@@ -250,6 +266,8 @@ function AdminProducts (){
       tempProduct={tempProduct} 
       deleteProduct={deleteProduct}
     />
+
+    <MessageToast />
   </>)
 }
 

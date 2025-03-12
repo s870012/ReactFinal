@@ -4,6 +4,7 @@ function Pagination ({pagination, getProducts, products}){
   const handlePageChange = (e, page) => {
     e.preventDefault();
     getProducts(page)
+    window.scrollTo(0,0)
   }
 
   return (<>
