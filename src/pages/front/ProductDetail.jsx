@@ -1,4 +1,5 @@
 import axios from "axios"
+import { Swiper, SwiperSlide } from "swiper/react"
 
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router"
@@ -104,8 +105,7 @@ function ProductDetail (){
           <div className="swiper-slide">
             <div className="card border-0 mb-4 position-relative position-relative">
               <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" className="card-img-top rounded-0" alt="..."/>
-              <a href="#" className="text-dark">
-              </a>
+              <a href="#" className="text-dark"></a>
               <div className="card-body p-0">
                 <h4 className="mb-0 mt-3"><a href="#">Lorem ipsum</a></h4>
                 <p className="card-text mb-0">NT$1,080 <span className="text-muted "><del>NT$1,200</del></span></p>

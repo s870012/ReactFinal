@@ -1,0 +1,20 @@
+.promote-bg{
+  background-image: url("https://media.istockphoto.com/id/1398518067/photo/bakery-shop-interior-close-up-view-of-bakery-counter-with-freshly-baked-food-and-buns.jpg?s=612x612&w=0&k=20&c=TfKM_seXHgWYli3P-6Rgd9KnKdiDjuRqccpQ3-xVYDk=");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  opacity: 0.6;
+}
+
+.promote-bg-position{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.promote-content{
+  z-index: 1;
+}

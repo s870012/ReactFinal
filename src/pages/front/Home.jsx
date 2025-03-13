@@ -4,7 +4,7 @@ import 'swiper/css';
 
 function Home (){
   return(<>
-    <div className="container">
+    <section className="container">
       <div className="row flex-md-row-reverse flex-column">
         <div className="col-md-6">
           <img src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="img-fluid"/>
@@ -104,8 +104,8 @@ function Home (){
           </div>
         </div>
       </div>
-    </div>
-    <div className="bg-light mt-7">
+    </section>
+    <section className="bg-light mt-7">
       <div className="container">
         <div className="row justify-content-center py-7">
           <div className="col-md-8 d-flex">
@@ -118,60 +118,62 @@ function Home (){
           </div>
         </div>
       </div>
-    </div>
-    <div className="container py-5">
+    </section>
+    <section className="container py-5">
+      <h2 className="text-center fw-bold mb-4">熱門商品</h2>
       <Swiper
         slidesPerView={3}
         spaceBetween={24}
         >
         <SwiperSlide>
           <div className="text-center">
-            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">Lorem ipsum</h4>
+            <img src="https://media.istockphoto.com/id/1215301923/photo/its-korean-old-donuts-menu.jpg?s=612x612&w=0&k=20&c=RSNXczXOILxp_2SAF-Fo4YDn8Ge9MU5druenPWolJaQ=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">日式紅豆麵包</h4>
             <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="text-center">
-            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">Lorem ipsum</h4>
+            <img src="https://media.istockphoto.com/id/1018888770/photo/bun-or-bread-with-taro-stuffed-and-taro-is-vegetable-on-wood-table.jpg?s=612x612&w=0&k=20&c=CLkxpkuZcraaVZqb-MEmOoCS98ixrtczGE2NlyHm61c=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">芋泥流心麵包</h4>
             <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="text-center"> 
-            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">Lorem ipsum</h4>
+            <img src="https://media.istockphoto.com/id/177010070/photo/fresh-baked-croissants.jpg?s=612x612&w=0&k=20&c=L2hCdC_RPMCy26OvC22WKUVtrkk_ksrG9kkRkSbpdK8=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">奶油可頌</h4>
             <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="text-center">
-            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">Lorem ipsum</h4>
+            <img src="https://media.istockphoto.com/id/517517898/photo/two-french-bread-loaves-in-bags.jpg?s=612x612&w=0&k=20&c=R8L3_P0jfmJYriKWt1VFVenug3KlZOzaq6FM5HUU8ng=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">法式長棍麵包</h4>
             <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="text-center">
-            <img src="https://images.unsplash.com/photo-1548689816-c399f954f3dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">Lorem ipsum</h4>
+            <img src="https://media.istockphoto.com/id/2158296467/photo/freshly-baked-homemade-cinnamon-rolls-in-basket-in-home-kitchen-on-white-table-cinnamon-stick.jpg?s=612x612&w=0&k=20&c=nNo0degA039n7AQ3uN3TDhqYb4hx5EA2OntwiEHdRMg=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+            <h4 className="mt-4">肉桂捲</h4>
             <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
           </div>
         </SwiperSlide>
       </Swiper>
-    </div>
-    <div className="bg-light py-7">
+    </section>
+    <section className="bg-light py-7 position-relative">
+      <div className="promote-bg promote-bg-position"></div>
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-md-4 text-center">
-            <h3>新鮮出爐，幸福滿滿</h3>
-            <p className="text-muted">美味不等人，趕快來品嚐我們的手工烘焙<br/>讓幸福從每一口開始</p>
+          <div className="col-md-4 text-center promote-content">
+            <h3 className="text-nowrap fw-bold">新鮮出爐，幸福滿滿</h3>
+            <p className="text-dark">美味不等人，趕快來品嚐我們的手工烘焙<br/>讓幸福從每一口開始</p>
             <button className="btn btn-dark mt-4 rounded-2">探尋美味</button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </>)
 }
 
