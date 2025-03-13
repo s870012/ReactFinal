@@ -475,7 +475,8 @@ $icon-link-icon-transform:    translate3d(.25em, 0, 0) !default;
 //
 // Style p element.
 
-$paragraph-margin-bottom:   1rem !default;
+$paragraph-margin-bottom:   0 !default;
+// $paragraph-margin-bottom:   1rem !default;
 
 
 // Grid breakpoints

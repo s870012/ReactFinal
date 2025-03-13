@@ -1,8 +1,30 @@
+import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 import 'swiper/css';
 
+const url = import.meta.env.VITE_BASE_URL
+const path = import.meta.env.VITE_API_PATH
 function Home (){
+  const [products, setProducts] = useState([]);
+  
+  const getProducts = async() => {
+    try {
+      const res = await axios.get(`${url}/api/${path}/products/all`)
+      setProducts(res.data.products)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const filterProducts = products.filter(product => product.origin_price < 65)  
+
+  useEffect(() => {
+    getProducts();
+  },[])
+  
   return(<>
     <section className="container">
       <div className="row flex-md-row-reverse flex-column">
@@ -123,43 +145,19 @@ function Home (){
       <h2 className="text-center fw-bold mb-4">熱門商品</h2>
       <Swiper
         slidesPerView={3}
-        spaceBetween={24}
         >
-        <SwiperSlide>
-          <div className="text-center">
-            <img src="https://media.istockphoto.com/id/1215301923/photo/its-korean-old-donuts-menu.jpg?s=612x612&w=0&k=20&c=RSNXczXOILxp_2SAF-Fo4YDn8Ge9MU5druenPWolJaQ=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">日式紅豆麵包</h4>
-            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="text-center">
-            <img src="https://media.istockphoto.com/id/1018888770/photo/bun-or-bread-with-taro-stuffed-and-taro-is-vegetable-on-wood-table.jpg?s=612x612&w=0&k=20&c=CLkxpkuZcraaVZqb-MEmOoCS98ixrtczGE2NlyHm61c=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">芋泥流心麵包</h4>
-            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="text-center"> 
-            <img src="https://media.istockphoto.com/id/177010070/photo/fresh-baked-croissants.jpg?s=612x612&w=0&k=20&c=L2hCdC_RPMCy26OvC22WKUVtrkk_ksrG9kkRkSbpdK8=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">奶油可頌</h4>
-            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="text-center">
-            <img src="https://media.istockphoto.com/id/517517898/photo/two-french-bread-loaves-in-bags.jpg?s=612x612&w=0&k=20&c=R8L3_P0jfmJYriKWt1VFVenug3KlZOzaq6FM5HUU8ng=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">法式長棍麵包</h4>
-            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="text-center">
-            <img src="https://media.istockphoto.com/id/2158296467/photo/freshly-baked-homemade-cinnamon-rolls-in-basket-in-home-kitchen-on-white-table-cinnamon-stick.jpg?s=612x612&w=0&k=20&c=nNo0degA039n7AQ3uN3TDhqYb4hx5EA2OntwiEHdRMg=" alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
-            <h4 className="mt-4">肉桂捲</h4>
-            <p className="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-          </div>
-        </SwiperSlide>
+        {filterProducts.map((product) => {
+          return (
+            <SwiperSlide key={product.id}>
+              <div className="text-center">
+                <img src={product.imagesUrl[1]} alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+                <h4 className="fw-bold my-1">{product.title} </h4>
+                <p>NT${product.price} <del className="fs-6">NT${product.origin_price}</del></p>
+                <Link to={`/product/${product.id}`} type="button" className="btn btn-dark mt-2">查看更多</Link>
+              </div>
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </section>
     <section className="bg-light py-7 position-relative">

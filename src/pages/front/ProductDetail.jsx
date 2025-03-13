@@ -1,5 +1,10 @@
 import axios from "axios"
+
+//swiper
 import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation } from "swiper/modules"
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router"
@@ -39,25 +44,18 @@ function ProductDetail (){
     <div className="container">
       <div className="row align-items-center">
         <div className="col-md-7">
-          <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-            <div className="carousel-inner">
-              {product.imagesUrl?.map((item, index) => {
-                return(
-                  <div key={index} className="carousel-item active">
-                    <img src={item} className="d-block w-100 object-fit-cover" height="520px" alt="..."/>
-                  </div>
-                )
-              })}
-            </div>
-            <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span className="sr-only">Previous</span>
-            </a>
-            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
-              <span className="sr-only">Next</span>
-            </a>
-          </div>
+          <Swiper
+            modules={[Navigation]}
+            navigation
+          >
+            {product.imagesUrl?.map((item, index) => {
+              return(
+                <SwiperSlide key={index}>
+                  <img src={item} alt="" style={{height:"400px", width:"100%",objectFit:"cover"}}/>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
         </div>
         <div className="col-md-5">
           <nav aria-label="breadcrumb">
@@ -100,21 +98,26 @@ function ProductDetail (){
         </div>
       </div>
       <h3 className="fw-bold">其他產品</h3>
-      <div className="swiper-container mt-4 mb-5">
-        <div className="swiper-wrapper">
-          <div className="swiper-slide">
-            <div className="card border-0 mb-4 position-relative position-relative">
-              <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" className="card-img-top rounded-0" alt="..."/>
-              <a href="#" className="text-dark"></a>
-              <div className="card-body p-0">
-                <h4 className="mb-0 mt-3"><a href="#">Lorem ipsum</a></h4>
-                <p className="card-text mb-0">NT$1,080 <span className="text-muted "><del>NT$1,200</del></span></p>
-                <p className="text-muted mt-3"></p>
-              </div>
-            </div>
+      <Swiper>
+        <SwiperSlide>
+          <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" className="card-img-top rounded-0 w-50" alt="..."/>
+          <a href="#" className="text-dark"></a>
+          <div className="card-body p-0">
+            <h4 className="mb-0 mt-3"><a href="#">Lorem ipsum</a></h4>
+            <p className="card-text mb-0">NT$1,080 <span className="text-muted "><del>NT$1,200</del></span></p>
+            <p className="text-muted mt-3"></p>
           </div>
-        </div>
-      </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" className="card-img-top rounded-0 w-50" alt="..."/>
+          <a href="#" className="text-dark"></a>
+          <div className="card-body p-0">
+            <h4 className="mb-0 mt-3"><a href="#">Lorem ipsum</a></h4>
+            <p className="card-text mb-0">NT$1,080 <span className="text-muted "><del>NT$1,200</del></span></p>
+            <p className="text-muted mt-3"></p>
+          </div>
+        </SwiperSlide>
+      </Swiper>
     </div>
   </>)
 }
