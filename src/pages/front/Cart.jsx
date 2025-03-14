@@ -13,6 +13,7 @@ function Cart() {
   const cartData = useSelector(state => state.cart.data);
   const dispatch = useDispatch();
   
+  
   useEffect(() => {
     (async() => {
       dispatch(asyncGetCart())

@@ -12,7 +12,8 @@ function Navbar (){
           </button>
           <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <NavLink className="nav-item nav-link me-4 active" to="/">首頁</NavLink>
+              <NavLink className="nav-item nav-link me-4 active" to="/">品牌故事</NavLink>
+              <NavLink className="nav-item nav-link me-4 active" to="/">最新消息</NavLink>
               <NavLink className="nav-item nav-link me-4" to="/products">商品</NavLink>
               <NavLink className="nav-item nav-link" to="/cart"><i className="bi bi-cart-fill"></i></NavLink>
             </div>

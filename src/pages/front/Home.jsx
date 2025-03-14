@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
+import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 
 const url = import.meta.env.VITE_BASE_URL
@@ -150,7 +150,7 @@ function Home (){
           return (
             <SwiperSlide key={product.id}>
               <div className="text-center">
-                <img src={product.imagesUrl[1]} alt="" style={{width: '300px', height: '200px', objectFit: 'cover'}}/>
+                <img src={product.imagesUrl[1]} alt="" style={{width: '300px', height: '220px', objectFit: 'cover'}}/>
                 <h4 className="fw-bold my-1">{product.title} </h4>
                 <p>NT${product.price} <del className="fs-6">NT${product.origin_price}</del></p>
                 <Link to={`/product/${product.id}`} type="button" className="btn btn-dark mt-2">查看更多</Link>

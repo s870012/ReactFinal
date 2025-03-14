@@ -8,6 +8,8 @@ import 'swiper/css/navigation'
 
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router"
+import { useSelector, useDispatch } from "react-redux"
+import { asyncGetProducts } from "../../slices/productsSlice"
 
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
@@ -15,18 +17,23 @@ function ProductDetail (){
   const { id } = useParams()
   const [product, setProduct] = useState({});
   const [cartQty, setCartQty] = useState(1);
+  const products = useSelector(state => state.products.data)
+  
+  const dispatch = useDispatch()
 
   useEffect(() => {
     (async() => {
       try {
         const res = await axios.get(`${url}/api/${path}/product/${id}`)
         setProduct(res.data.product)
+        dispatch(asyncGetProducts())
       } catch (error) {
         console.log(error)
       }
     })()
   }, [id])
 
+  //新增購物車品項
   const addCartItem = async (product_id, qty) => {
     try {
       await axios.post(`${url}/api/${path}/cart`, {
@@ -37,7 +44,7 @@ function ProductDetail (){
       })
     } catch (error) {
       console.log(error);
-    }
+    } 
   }
 
   return(<>
@@ -98,25 +105,22 @@ function ProductDetail (){
         </div>
       </div>
       <h3 className="fw-bold">其他產品</h3>
-      <Swiper>
-        <SwiperSlide>
-          <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" className="card-img-top rounded-0 w-50" alt="..."/>
-          <a href="#" className="text-dark"></a>
-          <div className="card-body p-0">
-            <h4 className="mb-0 mt-3"><a href="#">Lorem ipsum</a></h4>
-            <p className="card-text mb-0">NT$1,080 <span className="text-muted "><del>NT$1,200</del></span></p>
-            <p className="text-muted mt-3"></p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" className="card-img-top rounded-0 w-50" alt="..."/>
-          <a href="#" className="text-dark"></a>
-          <div className="card-body p-0">
-            <h4 className="mb-0 mt-3"><a href="#">Lorem ipsum</a></h4>
-            <p className="card-text mb-0">NT$1,080 <span className="text-muted "><del>NT$1,200</del></span></p>
-            <p className="text-muted mt-3"></p>
-          </div>
-        </SwiperSlide>
+      <Swiper
+        slidesPerView={3}
+      >
+        {products.map((product) => {
+          return(
+            <SwiperSlide key={product.id}>
+              <img src={product.imageUrl} className="card-img-top rounded-0 w-100" alt="product"/>
+              <a href="#" className="text-dark"></a>
+              <div className="card-body p-0">
+                <h4 className="mb-0 mt-3"><a href="#">{product.title}</a></h4>
+                <p className="card-text mb-0">NT${product.price} <span className="text-muted "><del>NT${product.origin_price}</del></span></p>
+                <p className="text-muted mt-3"></p>
+              </div>
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </div>
   </>)

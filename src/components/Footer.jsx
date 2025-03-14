@@ -3,29 +3,29 @@ import { Link } from "react-router"
 
 function Footer (){
   return (<>
-    <div className="bg-dark py-5">
+    <div className="bg-dark pt-5 pb-4">
       <div className="container">
-        <div className="d-flex align-items-start justify-content-between text-white mb-md-7 mb-4">
-          <div className="d-flex">
-            <Link className="text-white h4 me-3" to="/"><img src={logoWhite} alt="logo" width="160px"/></Link>
-            <ul>
-              <li className="mb-2 list-unstyled">關於我們</li>
-              <li className="mb-2 list-unstyled">最新消息</li>
-              <Link className="text-white text-decoration-none" to="/login">登入後台</Link>
-            </ul>
+        <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start justify-content-center justify-content-sm-between text-white mb-4">
+          <div>
+            <Link className="text-white h4 d-block mb-3" to="/"><img src={logoWhite} alt="logo" width="160px"/></Link>
+            <div className="d-flex mb-md-0 mb-1">
+              <i className="bi bi-telephone-fill me-2"></i>
+              <a className="text-white text-decoration-none mb-0">04-3456-7890</a>
+            </div>
+            <div className="d-flex mb-md-0">
+              <i className="bi bi-envelope-fill me-2"></i>
+              <a className="text-white text-decoration-none mb-0">black.heart@mail.com</a>
+            </div>
           </div>
-          <ul className="d-flex list-unstyled mb-0 h4">
-            <li><a href="#" className="text-white mx-3"><i className="bi bi-facebook"></i></a></li>
-            <li><a href="#" className="text-white mx-3"><i className="bi bi-instagram"></i></a></li>
-            <li><a href="#" className="text-white ms-3"><i className="bi bi-line"></i></a></li>
+          <ul className="d-flex list-unstyled mt-2 mt-md-0 h4">
+            <li><a href="#" className="text-white"><i className="bi bi-facebook"></i></a></li>
+            <li><a href="#" className="text-white ms-4"><i className="bi bi-instagram"></i></a></li>
+            <li><a href="#" className="text-white ms-4"><i className="bi bi-line"></i></a></li>
           </ul>
         </div>
-        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end align-items-start text-white">
-          <div className="mb-md-0 mb-1">
-            <p className="mb-0">04-3456-7890</p>
-            <p className="mb-0">service@mail.com</p>
-          </div>
-          <p className="mb-0">© 2025 僅作為作品無任何商業使用</p>
+        <div className="d-flex flex-column flex-md-row justify-content-center align-items-center text-white border-top pt-3">
+          <p className="me-3">© 2025 僅作為作品無任何商業使用</p>
+          <Link className="text-white text-decoration-none fs-7" to="/login">登入後台</Link>
         </div>
       </div>
     </div>  

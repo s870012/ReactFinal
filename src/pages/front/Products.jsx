@@ -13,7 +13,7 @@ function Products (){
   const [products, setProducts] = useState([]);
   
   const [pagination, setPagination] = useState({});
-  const [selectCategory, setSelectCategory] = useState('全部產品')
+  const [selectCategory, setSelectCategory] = useState('全部商品')
 
   useEffect(() => {
     const getAllProducts = async() => {
@@ -29,7 +29,7 @@ function Products (){
 
   const getProducts = async(page =1) => {
     try {
-      const res = await axios.get(`${url}/api/${path}/products?category=${selectCategory === '全部產品' ? '' : selectCategory}&page=${page}`)
+      const res = await axios.get(`${url}/api/${path}/products?category=${selectCategory === '全部商品' ? '' : selectCategory}&page=${page}`)
       setProducts(res.data.products)
       setPagination(res.data.pagination)
     } catch (error) {
@@ -41,7 +41,7 @@ function Products (){
     getProducts()
   }, [selectCategory])
 
-  const categories = ['全部產品', ...new Set(allProducts.map((product) => product.category))] 
+  const categories = ['全部商品', ...new Set(allProducts.map((product) => product.category))] 
 
   return(<>
     <div className="position-relative d-flex align-items-center justify-content-center" style={{minHeight: "400px"}}>
@@ -64,7 +64,7 @@ function Products (){
                 <ul className="list-unstyled">
                   {categories.map((category) => (
                     <li  key={category}>
-                      <button type="button" className="btn border-none py-2 d-block text-muted" onClick={() => setSelectCategory(category)}>{category}</button>
+                      <div className="hover py-2 d-block text-muted" onClick={() => setSelectCategory(category)}>{category}</div>
                     </li>
                   ))}
                 </ul>
