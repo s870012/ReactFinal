@@ -1,10 +1,12 @@
 import axios from "axios";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { asyncGetCart } from "../../slices/cartSlice";
+
+import Loading from "../../components/Loading";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
@@ -12,6 +14,7 @@ function Checkout () {
   const cartData = useSelector((state) => state.cart.data)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async() => {
@@ -40,16 +43,20 @@ function Checkout () {
   }
 
   const handleOrder = async(data) => {
+    setIsLoading(true);
     try {
       await axios.post(`${url}/api/${path}/order`, data)
       navigate('/success');
       reset();
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
   
   return(<>
+    <Loading isLoading={isLoading} />
      <div className="bg-light pt-5 pb-7">
       <div className="container">
         <div className="mb-5">

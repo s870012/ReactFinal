@@ -7,8 +7,8 @@ function Footer (){
       <div className="container">
         <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start justify-content-center justify-content-sm-between text-white mb-4">
           <div>
-            <Link className="text-white h4 d-block mb-3" to="/"><img src={logoWhite} alt="logo" width="160px"/></Link>
-            <div className="d-flex mb-md-0 mb-1">
+            <Link className="text-white h4 d-block mb-4" to="/"><img src={logoWhite} alt="logo" width="160px"/></Link>
+            <div className="d-flex mb-md-0 mb-2">
               <i className="bi bi-telephone-fill me-2"></i>
               <a className="text-white text-decoration-none mb-0">04-3456-7890</a>
             </div>

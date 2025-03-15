@@ -9,6 +9,7 @@ import MessageToast from "../../components/MessageToast";
 import Pagination from "../../components/Pagination";
 import ProductsModal from "../../components/ProductsModal";
 import DeleteModal from "../../components/DeleteModal";
+import Loading from "../../components/Loading";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
@@ -16,16 +17,20 @@ function AdminProducts (){
   //products
   const [products, setProducts] = useState([])
   const [pagination, setPagination] = useState({})
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch()
 
   const getProducts = async(page=1) => {
+    setIsLoading(true)
     try {
       const res = await axios.get(`${url}/api/${path}/admin/products?page=${page}`)
       setProducts(res.data.products)
       setPagination(res.data.pagination)
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -203,6 +208,7 @@ function AdminProducts (){
   }
 
   return(<>
+    <Loading isLoading={isLoading} />
     <div>
       <div className="container">
         <div className="text-start mt-4">

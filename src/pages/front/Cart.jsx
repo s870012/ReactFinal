@@ -109,7 +109,7 @@ function Cart() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cartData.carts?.map((cartItem) => {
+                    {cartData?.carts?.map((cartItem) => {
                       return(
                         <tr key={cartItem.id} className="border-bottom border-top">
                           <th scope="row" className="border-0 px-0 font-weight-normal py-4">

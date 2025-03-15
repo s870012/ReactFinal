@@ -10,6 +10,8 @@ import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import { asyncGetProducts } from "../../slices/productsSlice"
+import { asyncGetCart } from "../../slices/cartSlice"
+import Loading from "../../components/Loading"
 
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
@@ -17,8 +19,8 @@ function ProductDetail (){
   const { id } = useParams()
   const [product, setProduct] = useState({});
   const [cartQty, setCartQty] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const products = useSelector(state => state.products.data)
-  
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -35,6 +37,7 @@ function ProductDetail (){
 
   //新增購物車品項
   const addCartItem = async (product_id, qty) => {
+    setIsLoading(true)
     try {
       await axios.post(`${url}/api/${path}/cart`, {
         data:{
@@ -42,12 +45,16 @@ function ProductDetail (){
           qty:Number(qty)
         }
       })
+      dispatch(asyncGetCart())
     } catch (error) {
       console.log(error);
-    } 
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return(<>
+    <Loading isLoading={isLoading} />
     <div className="container">
       <div className="row align-items-center">
         <div className="col-md-7">

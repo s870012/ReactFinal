@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import Loading from "../../components/Loading";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
 function AdminCoupon () {
-
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -37,11 +38,14 @@ function AdminCoupon () {
   //取得憂患券
   const [couponData, setCouponData] = useState([])
   const getCoupons = async() => {
+    setIsLoading(true)
     try {
       const res = await axios.get(`${url}/api/${path}/admin/coupons`)
       setCouponData(res.data.coupons)
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -64,6 +68,7 @@ function AdminCoupon () {
   }
 
   return(<>
+    <Loading isLoading={isLoading} />
     <div>
       <div className="container">
         <div className="row flex-column">

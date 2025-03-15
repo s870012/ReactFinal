@@ -1,20 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loading from "../../components/Loading";
 // import Pagination from "../../components/Pagination";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
 function AdminOrders(){
-  const [ordersData, setOrdersData] = useState([])
+  const [ordersData, setOrdersData] = useState([]);
+  const [isLoading, setIsLoading] =useState(false);
   // const [pagination, setPagination] = useState({})
 
   const getAdminOrders = async(page = 1) => {
+    setIsLoading(true)
     try {
       const res = await axios.get(`${url}/api/${path}/admin/orders?page=${page}`)
       setOrdersData(res.data.orders)
       // setPagination(res.data.pagination)
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -48,15 +53,19 @@ function AdminOrders(){
 
   //刪除訂單
   const deleteOrder = async(id) => {
+    setIsLoading(true)
     try {
       await axios.delete(`${url}/api/${path}/admin/order/${id}`)
       getAdminOrders();
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false)
     }
   }
   
   return (<>
+    <Loading isLoading={isLoading} />
     <div>
       <div className="container">
         <table className="table mt-4">

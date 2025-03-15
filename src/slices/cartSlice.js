@@ -12,7 +12,7 @@ export const cartSlice = createSlice({
     getCart(state, { payload }){
       state.data = payload
     },
-    deleteCart(state, {payload}){
+    deleteCart(state, { payload }){
       state.data = payload
     },
   }
