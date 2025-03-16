@@ -1,5 +1,6 @@
 import Layout from "../Layout"
 import Home from "../pages/front/Home"
+import About from "../pages/front/About.jsx"
 import Products from "../pages/front/Products"
 import ProductDetail from "../pages/front/ProductDetail"
 import Cart from "../pages/front/Cart"
@@ -22,6 +23,10 @@ const routes=[
       {
         path:'',
         element:<Home/>
+      },
+      {
+        path:'about',
+        element: <About/>
       },
       {
         path:'products',

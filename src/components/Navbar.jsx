@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 
 const routes = [
-  {path: "/story", name: "品牌故事"},
+  {path: "/about", name: "品牌故事"},
   {path: "/news", name: "最新消息"},
-  {path: "/products", name: "商品"},
+  {path: "/products", name: "手感烘焙"},
   {path: "/cart", name: "購物車"},
 ]
 
@@ -25,20 +25,34 @@ function Navbar (){
   const cartsQty = carts?.carts?.map((cart) => cart.qty).reduce((a, b) => a + b)
   
   return(<>
-    <div>
+    <div className="position-fixed w-100 bg-white" style={{zIndex:"1000"}}>
       <div className="container d-flex flex-column">
-        <nav className="navbar navbar-expand-lg navbar-light">
+        <nav className="navbar navbar-expand-md navbar-light">
           <NavLink className="navbar-brand" to="/"><img src={logo} alt="logo" style={{height:"40px"}}/></NavLink>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+          <div className="d-flex align-items-center">
+            <NavLink className="d-md-none me-4" to="/cart">
+              <div className="position-relative">
+                <i className="bi bi-cart-fill fs-5 text-dark"></i>
+                <span
+                  className="position-absolute badge text-bg-danger rounded-circle fs-7"
+                  style={{
+                    bottom: "12px",
+                    left: "12px",
+                  }}
+                >{cartsQty}</span>
+              </div>
+            </NavLink> 
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          </div>
           <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div className="navbar-nav d-flex align-items-center">
               {routes.map((route) => {
                 return (
                   <NavLink key={route.path} className="nav-item nav-link me-4 active" to={route.path}>
                     {route.name === "購物車" ? (
-                      <div className="position-relative">
+                      <div className="position-relative d-none d-md-block">
                         <i className="bi bi-cart-fill fs-5"></i>
                         <span
                           className="position-absolute badge text-bg-danger rounded-circle fs-7"

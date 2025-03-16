@@ -55,7 +55,7 @@ function ProductDetail (){
 
   return(<>
     <Loading isLoading={isLoading} />
-    <div className="container">
+    <div className="container pt-66">
       <div className="row align-items-center">
         <div className="col-md-7">
           <Swiper
@@ -114,6 +114,7 @@ function ProductDetail (){
       <h3 className="fw-bold">其他產品</h3>
       <Swiper
         slidesPerView={3}
+        spaceBetween={30}
       >
         {products.map((product) => {
           return(

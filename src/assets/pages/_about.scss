@@ -1,0 +1,15 @@
+.banner-position{
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.banner-img{
+  background-image: url("https://plus.unsplash.com/premium_photo-1665669248059-0a70291944f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pbi1zYW1lLXNlcmllc3wzfHx8ZW58MHx8fHx8");
+  background-size: cover;
+  background-position: center cneter;
+  background-attachment: fixed;
+  opacity: 0.8;
+}

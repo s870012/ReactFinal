@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import 'swiper/css';
+// import 'swiper/css/autoplay';
+
+import  { useForm } from "react-hook-form";
 
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
@@ -19,14 +23,26 @@ function Home (){
     }
   }
 
-  const filterProducts = products.filter(product => product.origin_price < 65)  
+  const filterProducts = products.filter(product => product.origin_price < 70)  
 
   useEffect(() => {
     getProducts();
   },[])
   
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    reset();
+  }
+  
   return(<>
-    <section className="container">
+    <section className="container pt-66">
       <div className="row flex-md-row-reverse flex-column">
         <div className="col-md-6">
           <img src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="img-fluid"/>
@@ -36,14 +52,29 @@ function Home (){
           <h5 className="font-weight-normal text-muted mt-2">
             用心烘焙，為您帶來的不僅是美味，還有每天的幸福與歡樂<br/>在這裡，幸福是隨手可得的
           </h5>
-          <div className="input-group mb-0 mt-4">
-            <input type="text" className="form-control rounded-0" placeholder="輸入電子郵件，訂閱最新消息" />
-            <div className="input-group-append">
-              <button className="btn btn-dark rounded-0" type="button" id="search">
-                訂閱
-              </button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="input-group mb-0 mt-4">
+              <input type="mail" className={`form-control rounded-0 ${errors.subscribeMail && "is-invalid"}`} placeholder="輸入電子郵件，訂閱最新消息" 
+              {...register("subscribeMail", {
+                required:{
+                  value:true,
+                  message:"請輸入電子信箱"
+                },
+                pattern:{
+                  value:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message:'電子信箱格式不正確'
+                }
+              })}/>
+              <div className="input-group-append">
+                <button className="btn btn-dark rounded-0" type="submit" id="search">
+                  訂閱
+                </button>
+              </div>
             </div>
-          </div>
+            {errors.subscribeMail && (
+              <div className='text-start text-danger ps-2 my-2'>{errors?.subscribeMail?.message}</div>
+            )}
+          </form>
         </div>
       </div>
       <div className="row mt-5">
@@ -144,16 +175,34 @@ function Home (){
     <section className="container py-5">
       <h2 className="text-center fw-bold mb-4">熱門商品</h2>
       <Swiper
+        modules={[Autoplay]}
+        autoplay={{
+          delay:3000,
+          pauseOnMouseEnter:true
+        }}
         slidesPerView={3}
+        loop={true}
+        breakpoints={{
+          375:{
+            slidesPerView:1
+          },
+          576:{
+            slidesPerView:2
+          },
+          768:{
+            slidesPerView:3
+          }
+        }}
         >
         {filterProducts.map((product) => {
           return (
             <SwiperSlide key={product.id}>
               <div className="text-center">
-                <img src={product.imagesUrl[1]} alt="" style={{width: '300px', height: '220px', objectFit: 'cover'}}/>
-                <h4 className="fw-bold my-1">{product.title} </h4>
-                <p>NT${product.price} <del className="fs-6">NT${product.origin_price}</del></p>
-                <Link to={`/product/${product.id}`} type="button" className="btn btn-dark mt-2">查看更多</Link>
+                <img src={product.imagesUrl[1]} alt="slideImg" style={{width: '400px', height: '320px', objectFit: 'cover'}}/>
+                <div className="">
+                  <h4 className="fw-bold my-1">{product.title} </h4>
+                  <Link to={`/product/${product.id}`} type="button" className="btn btn-dark mt-2">查看更多</Link>
+                </div>
               </div>
             </SwiperSlide>
           )
