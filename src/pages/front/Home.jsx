@@ -13,7 +13,9 @@ const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
 function Home (){
   const [products, setProducts] = useState([]);
+  const [articles, setArticles] = useState([]);
   
+  //取得全部產品
   const getProducts = async() => {
     try {
       const res = await axios.get(`${url}/api/${path}/products/all`)
@@ -23,12 +25,15 @@ function Home (){
     }
   }
 
+  //骰選Swiper顯示品項
   const filterProducts = products.filter(product => product.origin_price < 70)  
 
   useEffect(() => {
     getProducts();
+    getArticles();
   },[])
   
+  //訂閱電子報
   const {
     register,
     handleSubmit,
@@ -41,6 +46,16 @@ function Home (){
     reset();
   }
   
+  //取得活動列表
+  const getArticles = async() => {
+    try {
+      const res = await axios.get(`${url}/api/${path}/articles`)
+      setArticles(res.data.articles)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return(<>
     <section className="container pt-66">
       <div className="row flex-md-row-reverse flex-column">
@@ -78,84 +93,32 @@ function Home (){
         </div>
       </div>
       <div className="row mt-5">
-        <div className="col-md-6 mt-md-4">
-          <div className="card border-0 mb-4 position-relative position-relative">
-            <img
-              src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80"
-              className="card-img-top rounded-0"
-              alt="..."
-            />
-            <div className="card-body p-0">
-              <h4 className="mb-0 mt-4">Lorem ipsum</h4>
-              <div className="d-flex justify-content-between mt-3">
-                <p className="card-text text-muted mb-0 w-75">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod.
-                </p>
-                <button className="btn btn-outline-dark rounded-0 text-nowrap">
-                  Lorem ipsum
-                </button>
+        {articles.map((article) => {
+          return(
+            <div key={article.id} className="col-md-6 mt-md-4">
+              <div className="card border-0 mb-4 position-relative h-100">
+                <img
+                  src={article.image}
+                  className="card-img-top rounded-0"
+                  alt="..."
+                />
+                <div className="card-body p-0 h-100">
+                  <h4 className="mb-0 mt-4">{article.title}</h4>
+                  <div className="d-flex justify-content-between mt-3">
+                    <p className="card-text text-muted mb-0 w-75">
+                      {article.description}
+                    </p>
+                    <Link className="mt-auto h-100" to={`/article/${article.id}`}>  
+                      <button className="btn btn-outline-dark rounded-0 text-nowrap">
+                        了解更多...
+                      </button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="col-md-6 mt-md-4">
-          <div className="card border-0 mb-4 position-relative position-relative">
-            <img src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80" className="card-img-top rounded-0" alt="..."
-            />
-            <div className="card-body p-0">
-              <h4 className="mb-0 mt-4">Lorem ipsum</h4>
-              <div className="d-flex justify-content-between mt-3">
-                <p className="card-text text-muted mb-0 w-75">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod.
-                </p>
-                <button className="btn btn-outline-dark rounded-0 text-nowrap">
-                  Lorem ipsum
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6 mt-md-4">
-          <div className="card border-0 mb-4 position-relative position-relative">
-            <img
-              src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80"
-              className="card-img-top rounded-0"
-              alt="..."
-            />
-            <div className="card-body p-0">
-              <h4 className="mb-0 mt-4">Lorem ipsum</h4>
-              <div className="d-flex justify-content-between mt-3">
-                <p className="card-text text-muted mb-0 w-75">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod.
-                </p>
-                <button className="btn btn-outline-dark rounded-0 text-nowrap">
-                  Lorem ipsum
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6 mt-md-4">
-          <div className="card border-0 mb-4 position-relative position-relative">
-            <img src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80" className="card-img-top rounded-0" alt="..."
-            />
-            <div className="card-body p-0">
-              <h4 className="mb-0 mt-4">Lorem ipsum</h4>
-              <div className="d-flex justify-content-between mt-3">
-                <p className="card-text text-muted mb-0 w-75">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod.
-                </p>
-                <button className="btn btn-outline-dark rounded-0 text-nowrap">
-                  Lorem ipsum
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+          )
+        })}
       </div>
     </section>
     <section className="bg-light mt-7">

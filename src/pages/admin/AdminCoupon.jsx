@@ -161,7 +161,7 @@ function AdminCoupon () {
                     <td>{coupon.percent}</td>
                     <td>{coupon.due_date}</td>
                     <td>
-                      <button className="btn btn-outline-danger" onClick={deleteCoupon}>刪除</button>
+                      <button className="btn btn-outline-danger" onClick={() => deleteCoupon(coupon.id)}>刪除</button>
                     </td>
                   </tr>
                 )

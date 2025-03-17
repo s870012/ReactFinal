@@ -29,9 +29,9 @@ function Login (){
   }
   
   return(<>
-    <div className="container login mt-5">
+    <div className="container login">
       <div className="row justify-content-center">
-        <h1 className="h3 mb-3 font-weight-normal text-center">請先登入</h1>
+        <h1 className="h3 mb-3 font-weight-normal text-center mt-120">請先登入</h1>
         <div className="col-6">
           <form id="form" className="form-signin" onSubmit={handleSubmit(login)}>
             <div className="form-floating mb-3">

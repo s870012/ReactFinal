@@ -7,7 +7,7 @@ import { useEffect } from "react"
 
 const routes = [
   {path: "/about", name: "品牌故事"},
-  {path: "/news", name: "最新消息"},
+  {path: "/articles", name: "活動消息"},
   {path: "/products", name: "手感烘焙"},
   {path: "/cart", name: "購物車"},
 ]

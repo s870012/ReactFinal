@@ -1,6 +1,13 @@
 import axios from "axios"
 import { NavLink, useNavigate } from "react-router"
 
+const routes = [
+  {path: "/admin/products", name: "產品管理"},
+  {path: "/admin/orders", name: "訂單管理"},
+  {path: "/admin/coupon", name: "優惠券管理"},
+  {path: "/admin/articles", name: "活動管理"},
+]
+
 const url = import.meta.env.VITE_BASE_URL;
 function AdminNavbar(){
   const navigate = useNavigate();
@@ -21,15 +28,13 @@ function AdminNavbar(){
         <div className="navbar-brand" href="#">後台管理</div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-sm-0">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/products">產品管理</NavLink> 
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/orders">訂單管理</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/coupon">優惠券管理</NavLink>
-            </li>
+            {routes.map((route) => {
+              return (
+                <li key={route.path} className="nav-item">
+                  <NavLink className="nav-link" to={route.path}>{route.name}</NavLink> 
+                </li>
+              )
+            })}
             <li className="nav-item">
               <NavLink className="nav-link" to="/" onClick={handleLogout}>登出</NavLink>
             </li>

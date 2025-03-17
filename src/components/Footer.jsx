@@ -25,7 +25,7 @@ function Footer (){
         </div>
         <div className="d-flex flex-column flex-md-row justify-content-center align-items-center text-white border-top pt-3">
           <p className="me-3">© 2025 僅作為作品無任何商業使用</p>
-          <Link className="text-white text-decoration-none fs-7" to="/login">登入後台</Link>
+          <Link className="text-white text-decoration-none fs-7" to="/login"><i className="bi bi-gear-fill fs-7"></i>登入後台</Link>
         </div>
       </div>
     </div>  
