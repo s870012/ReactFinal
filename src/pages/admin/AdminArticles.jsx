@@ -75,13 +75,13 @@ function AdminArticles(){
   
   return(<>
     <Loading isLoading={isLoading} />
-    <div>
+    <div className="container">
       <div className="mb-66">
         <table className="table mt-4">
           <thead>
-            <tr>
+            <tr className="text-nowrap">
               <th>活動名稱</th>
-              <th>活動標籤</th>
+              <th >活動標籤</th>
               <th>活動發起人</th>
               <th>活動內容</th>
               <th>編輯</th>

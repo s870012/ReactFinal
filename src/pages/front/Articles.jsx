@@ -29,27 +29,32 @@ function Articles() {
 
   return(<>
     <Loading isLoading={isLoading}/>
-    <div className="container py-120">
+    <div className="position-relative d-flex align-items-center justify-content-center pt-66" style={{minHeight: "300px"}}>
+      <div className="position-absolute banner-position banner-img"></div>
+      <h2 className="fs-1 fw-bold text-white">活動訊息</h2>
+    </div>
+    <div className="container py-5">
       <div className="row">
-        <h2 className="fw-bold mb-3">活動消息</h2>
-        {articles.map((article) => {
-          return(
-            <div key={article.id} className="d-flex mb-4">
-              <div className="col-lg-2 me-2">
-                <img src={article.image} alt="" style={{width:"100%", height:"100%", objectFit:"cover"}}/>
-                <p></p>
-              </div>
-              <div className="col-lg-10 d-flex flex-column">
-                <h4>{article.title}</h4>
-                <p>{article.description}</p>
-                <div className="d-flex justify-content-between align-items-center mt-auto">
-                  <p>主辦單位 : {article.author}</p>
-                  <p>了解更多</p>
+        <div className="col-10 mx-auto">
+          <h2 className="fw-bold mb-3">活動消息</h2>
+          {articles.map((article) => {
+            return(
+              <div key={article.id} className="d-flex flex-column flex-lg-row mb-4">
+                <div className="col-lg-3 me-2 mb-3 mb-lg-0">
+                  <img src={article.image} alt="" style={{width:"100%", height:"100%", objectFit:"cover"}}/>
+                </div>
+                <div className="col-lg-9 d-flex flex-column">
+                  <h4 className="mb-2">{article.title}</h4>
+                  <p>{article.description}</p>
+                  <div className="d-flex justify-content-end justify-content-sm-between align-items-center mt-3 mt-sm-auto">
+                    <p className="d-none d-sm-block">主辦單位 : {article.author}</p>
+                    <Link to={`/article/${article.id}`} className="text-decoration-none">了解更多</Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     </div>
   </>)

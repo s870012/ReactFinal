@@ -72,7 +72,7 @@ function Cart() {
   }
 
   return(<>
-    <div className="container">
+    <div className="container pt-120">
       <div className="mt-3">
         <div className="mb-5">
           <ul className="list-unstyled mb-0 ms-md-auto d-flex align-items-center justify-content-between justify-content-md-center w-100 mt-md-0 mt-4">

@@ -57,7 +57,7 @@ function Checkout () {
   
   return(<>
     <Loading isLoading={isLoading} />
-     <div className="bg-light pt-5 pb-7">
+     <div className="bg-light pt-120 pb-7">
       <div className="container">
         <div className="mb-5">
           <ul className="list-unstyled mb-0 ms-md-auto d-flex align-items-center justify-content-between justify-content-md-center w-100 mt-md-0 mt-4">

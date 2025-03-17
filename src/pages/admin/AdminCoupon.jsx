@@ -27,11 +27,15 @@ function AdminCoupon () {
 
   //新增憂患券
   const addCoupon = async(data) => {
+    setIsLoading(true)
     try {
       await axios.post(`${url}/api/${path}/admin/coupon`, data)
       console.log("新增優惠券成功");
+      getCoupons();
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
