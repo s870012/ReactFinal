@@ -103,7 +103,7 @@ function Home (){
                   alt="..."
                 />
                 <div className="card-body p-0 h-100">
-                  <h4 className="mb-0 mt-4">{article.title}</h4>
+                  <h4 className="fw-bold mb-0 mt-4">{article.title}</h4>
                   <div className="d-flex justify-content-between mt-3">
                     <p className="card-text text-muted mb-0 w-75">
                       {article.description}

@@ -22,7 +22,7 @@ function Navbar (){
     })()
   }, [dispatch])
   
-  const cartsQty = carts?.carts?.map((cart) => cart.qty).reduce((a, b) => a + b)
+  // const cartsQty = carts?.carts?.map((cart) => cart.qty).reduce((a, b) => a + b)
   
   return(<>
     <div className="position-fixed w-100 bg-white" style={{zIndex:"1000"}}>
@@ -39,7 +39,7 @@ function Navbar (){
                     bottom: "12px",
                     left: "12px",
                   }}
-                >{cartsQty}</span>
+                >{carts?.carts?.length}</span>
               </div>
             </NavLink> 
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@ function Navbar (){
                             bottom: "12px",
                             left: "12px",
                           }}
-                        >{cartsQty}</span>
+                        >{carts?.carts?.length}</span>
                       </div>
                     ) : (
                       route.name

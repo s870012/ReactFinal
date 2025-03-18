@@ -1,9 +1,13 @@
 import axios from "axios";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css'
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSelector, useDispatch } from "react-redux"
 
+import { asyncGetProducts } from "../../slices/productsSlice";
 import { asyncGetCart } from "../../slices/cartSlice";
 import cart from "../../assets/images/cart.png"
 
@@ -11,14 +15,15 @@ const url = import.meta.env.VITE_BASE_URL;
 const path = import.meta.env.VITE_API_PATH; 
 function Cart() {
   const cartData = useSelector(state => state.cart.data);
+  const productsData = useSelector(state => state.products.data);
   const dispatch = useDispatch();
-  
   
   useEffect(() => {
     (async() => {
       dispatch(asyncGetCart())
+      dispatch(asyncGetProducts())
     })()
-  },[dispatch])
+  },[])
 
   //編輯購物車產品數量
   const editCartItem = async(id, product_id, qty) => {
@@ -178,6 +183,30 @@ function Cart() {
         )}
       </div>
     </div>
+    {cartData.carts.length !== 0 && (
+      <div>
+        <div className="container">
+          <h3 className="fw-bold">其他產品</h3>
+        </div>
+        <Swiper
+            slidesPerView={3}
+          >
+            {productsData.map((product) => {
+              return(
+                <SwiperSlide key={product.id}>
+                  <img src={product.imageUrl} className="card-img-top rounded-0 w-100" alt="product"/>
+                  <a href="#" className="text-dark"></a>
+                  <div className="card-body p-0">
+                    <h4 className="mb-0 mt-3"><a href="#">{product.title}</a></h4>
+                    <p className="card-text mb-0">NT${product.price} <span className="text-muted "><del>NT${product.origin_price}</del></span></p>
+                    <p className="text-muted mt-3"></p>
+                  </div>
+                </SwiperSlide>
+              )
+            })}
+          </Swiper>
+      </div>
+    )}
   </>)
 }
 
