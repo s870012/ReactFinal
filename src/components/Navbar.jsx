@@ -25,7 +25,7 @@ function Navbar (){
   // const cartsQty = carts?.carts?.map((cart) => cart.qty).reduce((a, b) => a + b)
   
   return(<>
-    <div className="position-fixed w-100 bg-white" style={{zIndex:"1000"}}>
+    <div className="position-fixed w-100 bg-primary" style={{zIndex:"1000"}}>
       <div className="container d-flex flex-column">
         <nav className="navbar navbar-expand-md navbar-light">
           <NavLink className="navbar-brand" to="/"><img src={logo} alt="logo" style={{height:"40px"}}/></NavLink>
@@ -42,7 +42,7 @@ function Navbar (){
                 >{carts?.carts?.length}</span>
               </div>
             </NavLink> 
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
           </div>
@@ -50,7 +50,7 @@ function Navbar (){
             <div className="navbar-nav d-flex align-items-center">
               {routes.map((route) => {
                 return (
-                  <NavLink key={route.path} className="nav-item nav-link me-4 active" to={route.path}>
+                  <NavLink key={route.path} className="nav-item nav-link me-4 active text-dark100" to={route.path}>
                     {route.name === "購物車" ? (
                       <div className="position-relative d-none d-md-block">
                         <i className="bi bi-cart-fill fs-5"></i>
