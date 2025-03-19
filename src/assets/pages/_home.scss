@@ -18,3 +18,19 @@
 .promote-content{
   z-index: 1;
 }
+
+.home-swiper-position{
+  position: absolute;
+  bottom: 20px;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.swiper-hover:hover{
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.swiper-hover:hover .home-swiper-hover{
+  display: block !important;
+}

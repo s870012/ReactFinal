@@ -105,7 +105,7 @@ function Home (){
                   />
                   <div className="card-body px-3 h-100 bg-secondary">
                     <h4 className="fw-bold mb-0 mt-4 text-dark100">{article.title}</h4>
-                    <div className="d-flex justify-content-between mt-3">
+                    <div className="d-flex flex-column flex-md-row justify-content-between mt-3">
                       <p className="card-text text-dark200 lh-lg mb-0 w-75">
                         {article.description}
                       </p>
@@ -125,9 +125,9 @@ function Home (){
     </section>
     <section className="bg-white200">
       <div className="container">
-        <div className="row justify-content-center py-7">
-          <div className="col-md-8 d-flex">
-            <img src="https://media.istockphoto.com/id/517059150/photo/baker-holding-baguettes-at-the-manufacturing.jpg?s=612x612&w=0&k=20&c=3rtryROS8DEkkvtiD1_z-3O644Tv8-lumUPxGsCfhlw=" alt="chef" className="rounded-circle me-5" style={{width: '160px', height: '160px', objectFit: 'cover'}}/>
+        <div className="row justify-content-center py-3 py-sm-7">
+          <div className="col-md-8 d-flex flex-column flex-sm-row">
+            <img src="https://media.istockphoto.com/id/517059150/photo/baker-holding-baguettes-at-the-manufacturing.jpg?s=612x612&w=0&k=20&c=3rtryROS8DEkkvtiD1_z-3O644Tv8-lumUPxGsCfhlw=" alt="chef" className="rounded-circle me-sm-5 mb-2 mb-sm-0 mx-auto d-block" style={{width: '160px', height: '160px', objectFit: 'cover'}}/>
             <div className="d-flex flex-column">
               <p className="h5 fw-bold text-dark100 mb-2">Black Heart</p>
               <p className="h5 text-dark">以一顆對食物的熱愛與敬意，踏入了烘焙的世界。將每一塊麵包都視為藝術品，力求每一口都能帶來溫暖與幸福。</p>
@@ -163,11 +163,11 @@ function Home (){
           {filterProducts.map((product) => {
             return (
               <SwiperSlide key={product.id}>
-                <div className="text-center">
-                  <img src={product.imagesUrl[1]} alt="slideImg" style={{width: '400px', height: '320px', objectFit: 'cover'}}/>
-                  <div className="">
-                    <h4 className="fw-bold my-1">{product.title} </h4>
-                    <Link to={`/product/${product.id}`} type="button" className="btn btn-dark mt-2">查看更多</Link>
+                <div className="position-relative text-center swiper-hover overflow-hidden d-block">
+                  <img src={product.imagesUrl[1]} alt="slideImg" style={{width: '400px', height: 'auto', objectFit: 'cover'}}/>
+                  <div className="d-none home-swiper-position home-swiper-hover">
+                    <h4 className="my-1 text-white100">{product.title} </h4>
+                    <Link to={`/product/${product.id}`} type="button" className="btn btn-lg btn-outline-white100 mt-2">查看更多</Link>
                   </div>
                 </div>
               </SwiperSlide>
