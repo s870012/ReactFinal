@@ -34,3 +34,17 @@
 .swiper-hover:hover .home-swiper-hover{
   display: block !important;
 }
+
+.btn-bg{
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.article-width{
+  width: 100%;
+}
+
+@include lg {
+  .article-width{
+    width: 75%;
+  }
+}

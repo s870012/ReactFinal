@@ -64,9 +64,9 @@ function Home (){
             <img src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="img-fluid"/>
           </div>
           <div className="col-md-6 d-flex flex-column justify-content-center mt-md-0 mt-3">
-            <h2 className="fw-bold text-dark100">每一口，都是對美味的堅持</h2>
-            <h5 className="font-weight-normal text-dark200 mt-2">
-              用心烘焙，為您帶來的不僅是美味，還有每天的幸福與歡樂<br/>在這裡，幸福是隨手可得的
+            <h2 className="fw-bold text-dark100 fs-3 fs-lg-2">每一口，都是對美味的堅持</h2>
+            <h5 className="font-weight-normal text-dark200 mt-2 fs-6 fs-lg-5">
+              用心烘焙，為您帶來的不僅是美味，還有每天的幸福與歡樂在這裡，幸福是隨手可得的
             </h5>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="input-group mb-0 mt-4">
@@ -105,12 +105,12 @@ function Home (){
                   />
                   <div className="card-body px-3 h-100 bg-secondary">
                     <h4 className="fw-bold mb-0 mt-4 text-dark100">{article.title}</h4>
-                    <div className="d-flex flex-column flex-md-row justify-content-between mt-3">
-                      <p className="card-text text-dark200 lh-lg mb-0 w-75">
+                    <div className="d-flex flex-column flex-lg-row justify-content-between mt-3">
+                      <p className="card-text text-dark200 lh-lg mb-0 article-width">
                         {article.description}
                       </p>
                       <Link className="mt-auto h-100" to={`/article/${article.id}`}>  
-                        <button className="btn btn-dark300 text-white100 rounded-1 text-nowrap">
+                        <button className="btn btn-dark300 text-white100 rounded-1 text-nowrap mt-3">
                           了解更多...
                         </button>
                       </Link>
@@ -167,7 +167,7 @@ function Home (){
                   <img src={product.imagesUrl[1]} alt="slideImg" style={{width: '400px', height: 'auto', objectFit: 'cover'}}/>
                   <div className="d-none home-swiper-position home-swiper-hover">
                     <h4 className="my-1 text-white100">{product.title} </h4>
-                    <Link to={`/product/${product.id}`} type="button" className="btn btn-lg btn-outline-white100 mt-2">查看更多</Link>
+                    <Link to={`/product/${product.id}`} type="button" className="btn btn-lg btn-outline-white100 btn-bg mt-2">查看更多</Link>
                   </div>
                 </div>
               </SwiperSlide>

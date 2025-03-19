@@ -1,0 +1,20 @@
+.products-more-style{
+  display: none;
+  border: 2px solid $white;
+  padding: 12px 24px;
+  color: $white100;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.products-hover:hover{
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.products-hover:hover ~ .products-more-style{
+  display: block;
+} 
+
+.products-more-style:hover{
+  display: block;
+}

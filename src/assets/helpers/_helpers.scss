@@ -1,5 +1,49 @@
+//RWD
+@mixin sm {
+  @media (min-width:576px) {
+      @content;
+  }
+}
+
+@mixin md {
+  @media (min-width:768px) {
+      @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width:992px) {
+      @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width:1200px) {
+      @content;
+  }
+}
+@mixin xxl {
+  @media (min-width:1400px) {
+      @content;
+  }
+}
+@mixin xxxl {
+  @media (min-width:1600px) {
+      @content;
+  }
+}
+
+//hover style
 .hover:hover{
   cursor: pointer;
+}
+
+.hover-underline:hover{
+  border-bottom: 2px solid $base100;
+}
+
+.hover-base100:hover{
+  color: $base100 !important;
 }
 
 //loading
