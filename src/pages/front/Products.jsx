@@ -66,18 +66,13 @@ function Products (){
                   </h4>
                 </div>
                 <div className="card-body py-0">
-                  <ul className="d-none d-md-block list-unstyled">
+                  <ul className="d-flex flex-md-column overflow-auto list-unstyled">
                     {categories.map((category) => (
-                      <li key={category} className="text-center w-50 mx-auto">
+                      <li key={category} className="text-center w-50 mx-md-auto me-2">
                         <div className={`hover hover-underline py-2 d-block text-nowrap ${selectCategory === category && 'text-dark300'}`} onClick={() => setSelectCategory(category)}>{category}</div>
                       </li>
                     ))}
                   </ul>
-                  <select className="d-md-none form-select mb-4" aria-label="Default select example" onChange={(e) => setSelectCategory(e.target.value)}>
-                    {categories.map((category) => (
-                      <option key={category} value={category}>{category}</option>
-                    ))}
-                  </select>
                 </div>
               </div>
             </div>

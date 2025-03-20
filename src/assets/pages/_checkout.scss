@@ -1,0 +1,34 @@
+//信用卡號
+.credit-control:checked ~ .credit-info{
+  display: block;
+  transition: display 1s ease 1s;
+}
+
+.credit-info{
+  display: none;
+}
+
+//ATM轉帳
+.atm-control:checked ~ .atm-info{
+  display: block !important;
+  transition: display 1s ease 1s;
+}
+
+.atm-info{
+  display: none;
+}
+
+//電子支付
+.pay-control:checked ~ .pay-info{
+  display: block !important;
+  transition: display 1s ease 1s;
+}
+
+.pay-info{
+  display: none;
+}
+
+.payment-icon{
+  width: 50px;
+  object-fit: contain;
+}

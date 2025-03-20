@@ -2,16 +2,17 @@ import axios from "axios"
 
 //swiper
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation } from "swiper/modules"
+import { Autoplay } from "swiper/modules"
 import 'swiper/css'
-import 'swiper/css/navigation'
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams, Link } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import { asyncGetProducts } from "../../slices/productsSlice"
 import { asyncGetCart } from "../../slices/cartSlice"
+import { createMessage } from "../../slices/messageSlice"
 import Loading from "../../components/Loading"
+import MessageToast from "../../components/MessageToast"
 
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
@@ -46,6 +47,10 @@ function ProductDetail (){
         }
       })
       dispatch(asyncGetCart())
+      dispatch(createMessage({
+        text:"已新增至購物車",
+        status:"success"
+      }))
     } catch (error) {
       console.log(error);
     } finally {
@@ -53,20 +58,47 @@ function ProductDetail (){
     }
   }
 
+  //swiper
+  const swiperRef = useRef(null)
+
+  const handlePrev = () => {
+    if (swiperRef.current.isBeginning) {
+      swiperRef.current.slideTo(swiperRef.current.slides.length - 1)
+    } else {
+      swiperRef.current.slidePrev();
+    }
+  }
+
+  const handleNext = () => {
+    if (swiperRef.current.isEnd) {
+      swiperRef.current.slideTo(0)
+    } else {
+      swiperRef.current.slideNext();
+    }
+  }
+
   return(<>
     <Loading isLoading={isLoading} />
+    <MessageToast />
     <div className="bg-white100">
       <div className="container pt-66">
         <div className="row align-items-center">
           <div className="col-md-7">
             <Swiper
-              modules={[Navigation]}
-              navigation
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper
+              }}
             >
               {product.imagesUrl?.map((item, index) => {
                 return(
                   <SwiperSlide key={index}>
-                    <img src={item} alt="" style={{height:"400px", width:"100%",objectFit:"cover"}}/>
+                    <div className="position-relative">
+                      <img src={item} alt="itemsImg" style={{height:"400px", width:"100%",objectFit:"cover"}}/>
+                      <p type="button" className="position-absolute end-0 top-50 translate-middle-Y text-white fs-5"
+                      onClick={handleNext}>Next<i className="bi bi-chevron-right"></i></p>
+                      <p type="button" className="position-absolute start-0 top-50 translate-middle-Y text-white fs-5"
+                      onClick={handlePrev}><i className="bi bi-chevron-left"></i>Pre</p>
+                    </div>
                   </SwiperSlide>
                 )
               })}
@@ -76,7 +108,7 @@ function ProductDetail (){
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb px-0 mb-0 py-3">
                 <li className="breadcrumb-item"><Link className="text-muted hover-base100" to="/">首頁</Link></li>
-                <li className="breadcrumb-item"><Link className="text-muted hover-base100" to="/products">商品</Link></li>
+                <li className="breadcrumb-item"><Link className="text-muted hover-base100" to="/products">手感烘焙</Link></li>
                 <li className="breadcrumb-item active" aria-current="page">介紹</li>
               </ol>
             </nav>
@@ -114,17 +146,31 @@ function ProductDetail (){
         </div>
         <h3 className="fw-bold mb-2">其他產品</h3>
         <Swiper
-          slidesPerView={3}
+          modules={[Autoplay]}
+          autoplay={{
+            delay:3000,
+            pauseOnMouseEnter:true
+          }}
+          slidesPerView={2}
           spaceBetween={30}
+          breakpoints={{
+            375:{
+              slidesPerView:2
+            },
+            768:{
+              slidesPerView:3
+            }
+          }}
         >
           {products.map((product) => {
             return(
               <SwiperSlide key={product.id}>
-                <img src={product.imageUrl} className="card-img-top rounded-0 w-100" alt="product"/>
-                <a href="#" className="text-dark"></a>
+                <Link to={`/product/${product.id}`} className="card border-0 rounded-0 overflow-hidden">
+                  <img src={product.imageUrl} className="card-img-top rounded-0 d-block w-100 swiper-hover" alt="product"/>
+                </Link>
                 <div className="card-body text-center mt-2 p-0">
                   <Link to={`/product/${product.id}`} className="text-decoration-none text-dark100 h4">{product.title}</Link>
-                  <p className="card-text mb-0">NT${product.price} <span className="text-muted "><del>NT${product.origin_price}</del></span></p>
+                  <p className="card-text mb-0">活動價 NT${product.price} <span className="text-muted "><del>NT${product.origin_price}</del></span></p>
                   <p className="text-muted mt-3"></p>
                 </div>
               </SwiperSlide>
