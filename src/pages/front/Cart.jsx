@@ -186,11 +186,12 @@ function Cart() {
     {cartData?.carts?.length !== 0 && (
       <div>
         <div className="container">
-          <h3 className="fw-bold">其他產品</h3>
+          <h3 className="fw-bold mb-2">其他產品</h3>
         </div>
         <Swiper
-            slidesPerView={3}
+            slidesPerView={5}
             spaceBetween={16}
+            loop={true}
           >
             {productsData.map((product) => {
               return(

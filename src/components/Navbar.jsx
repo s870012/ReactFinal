@@ -53,7 +53,7 @@ function Navbar (){
                   <NavLink key={route.path} className="nav-item nav-link me-4 active text-dark100" to={route.path}>
                     {route.name === "購物車" ? (
                       <div className="position-relative d-none d-md-block">
-                        <i className="bi bi-cart-fill fs-5"></i>
+                        <i className="bi bi-cart-fill fs-5 hover-base200"></i>
                         <span
                           className="position-absolute badge text-bg-danger rounded-circle fs-7"
                           style={{
@@ -63,7 +63,7 @@ function Navbar (){
                         >{carts?.carts?.length}</span>
                       </div>
                     ) : (
-                      route.name
+                      <span className="hover-base200">{route.name}</span>
                     )}
                   </NavLink>
                 )

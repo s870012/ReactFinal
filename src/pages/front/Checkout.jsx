@@ -1,5 +1,4 @@
 import axios from "axios";
-import Accordion from "react-bootstrap/Accordion";
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -141,9 +140,9 @@ function Checkout () {
                   <label className="form-check-label text-muted" htmlFor="gridRadios2">ATM轉帳
                   </label>
                   <div className="d-flex atm-info d-none">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Visa_2021.svg/1200px-Visa_2021.svg.png" alt="visa" className="payment-icon border me-2"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/640px-Mastercard_2019_logo.svg.png" alt="masterCard" className="payment-icon border me-2"/>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JCB_logo.svg/1200px-JCB_logo.svg.png" alt="JCB" className="payment-icon border"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Visa_2021.svg/1200px-Visa_2021.svg.png" alt="visa" className="payment-icon me-2"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/640px-Mastercard_2019_logo.svg.png" alt="masterCard" className="payment-icon me-2"/>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JCB_logo.svg/1200px-JCB_logo.svg.png" alt="JCB" className="payment-icon"/>
                   </div>
                 </div>
                 <div className="form-check mb-2">
@@ -152,7 +151,7 @@ function Checkout () {
                   <label className="form-check-label text-muted" htmlFor="gridRadios3">電子支付
                   </label>
                   <div className="d-flex pay-info d-none">
-                    <img src="https://play-lh.googleusercontent.com/8_P-a9dl59BHkFR-9FZK5zqGdXoapFXSe9XxaE7SjdJHVm2AwycbiJnQoF9C1qM-8HQ=w600-h300-pc0xffffff-pd" alt="linePay" className="payment-icon me-2"/>
+                    <img src="https://timgm.eprice.com.tw/tw/mobile/img/2018-09/08/5127108/fsu2913_1_babc65f86a710b4f1097172a4542193f.jpg" alt="linePay" className="payment-icon me-2"/>
                     <img src="https://ntucace.ntu.edu.tw/institution/download.logo/sn/73/key/2024022013405865d43b6a06172/preview/1" alt="jkoPay" className="payment-icon me-2"/>
                     <img src="https://wellness.suntory.com.tw/service_quality_improvement/img/20201201_support_applepay01.jpg" alt="applePay" className="payment-icon me-2"/>
                     <img src="https://img.lovepik.com/png/20231120/google-pay-payment-software-vector-Serve-transfer-network_642921_wh860.png" alt="googlePay" className="payment-icon me-2"/>
@@ -164,7 +163,7 @@ function Checkout () {
             <div className="bg-white p-4 mt-3">
               <h4 className="fw-bold border-bottom pb-2">確認資訊</h4>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-3">
+                <div className="mb-3 mt-2">
                   <label htmlFor="ContactName" className="text-muted mb-0 form-label"><span className="text-danger">*</span>姓名</label>
                   <input type="text" className={`form-control rounded-0 ${errors.name && "is-invalid"}`} id="ContactName" placeholder="請輸入收貨人姓名"
                   {...register("name", {
