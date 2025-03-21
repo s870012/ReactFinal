@@ -140,7 +140,7 @@ function AdminCoupon () {
                 )}
               </div>
               <div className="text-end">
-                <button type="submit" className="btn btn-primary">新增優惠券</button>
+                <button type="submit" className="btn btn-blue">新增優惠券</button>
               </div>
             </form>
           </div>

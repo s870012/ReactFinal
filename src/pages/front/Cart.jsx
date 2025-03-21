@@ -189,9 +189,20 @@ function Cart() {
           <h3 className="fw-bold mb-2">其他產品</h3>
         </div>
         <Swiper
-            slidesPerView={5}
+            slidesPerView={1}
             spaceBetween={16}
             loop={true}
+            breakpoints={{
+              375:{
+                slidesPerView:1
+              },
+              576:{
+                slidesPerView:3
+              },
+              768:{
+                slidesPerView:5
+              }
+            }}
           >
             {productsData.map((product) => {
               return(

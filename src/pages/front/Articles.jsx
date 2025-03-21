@@ -9,13 +9,14 @@ const path = import.meta.env.VITE_API_PATH
 function Articles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
+  const [date, setDate] = useState('')
 
   const getArticles = async () => {
     setIsLoading(true);
     try {
       const res = await axios.get(`${url}/api/${path}/articles`)
       setArticles(res.data.articles)
-      console.log(new Date().getMonth(res.data.articles[0].create_at) +1 + '月' + new Date().getDate(res.data.articles[0].create_at));
+      setDate(new Date().getMonth(res.data.articles[0].create_at) +1 + '月' + new Date().getDate(res.data.articles[0].create_at) + '日');
     } catch (error) {
       console.log(error);
     } finally {
@@ -40,19 +41,19 @@ function Articles() {
             <h2 className="mb-3">活動訊息</h2>
             {articles.map((article) => {
               return(
-                <div key={article.id} className="d-flex flex-column flex-lg-row mb-4 bg-white shadow article-hover">
+                <Link key={article.id} to={`/article/${article.id}`} className="d-flex flex-column flex-lg-row mb-4 bg-white shadow text-decoration-none text-dark200 article-hover">
                   <div className="col-lg-3">
                     <img src={article.image} alt="articleImg" style={{width:"100%", height:"100%", objectFit:"cover"}} className="mx-auto d-block overflow-hidden "/>
                   </div>
                   <div className="col-lg-9 d-flex flex-column p-3">
-                    <h4 className=" mb-2">{article.title}</h4>
+                    <h4 className="text-dark100 mb-2">{article.title}</h4>
                     <p>{article.description}</p>
                     <div className="d-flex justify-content-end justify-content-sm-between align-items-center mt-3 mt-sm-auto">
                       <p className="d-none d-sm-block text-gray600">主辦單位 : {article.author}</p>
-                      <Link to={`/article/${article.id}`} className="text-decoration-none text-dark300">了解更多</Link>
+                      <p className="text-base100">{date}</p>
                     </div>
                   </div>
-                </div>
+                </Link>
               )
             })}
           </div>

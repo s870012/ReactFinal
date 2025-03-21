@@ -151,7 +151,7 @@ function ProductsModal ({
             <button type="button" className="btn btn-outline-secondary" onClick={closeModal}>
               取消
             </button>
-            <button type="button" className="btn btn-primary" onClick={editProduct}>確認</button>
+            <button type="button" className="btn btn-blue" onClick={editProduct}>確認</button>
           </div> 
         </div>
       </div>

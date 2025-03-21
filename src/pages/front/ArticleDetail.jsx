@@ -35,9 +35,9 @@ function ArticleDetail (){
             <li className="breadcrumb-item active" aria-current="page">{article.title}</li>
           </ol>
         </nav>
-        <h4 className="bg-dark text-white mb-3 py-3">{article.title}</h4>
+        <h4 className="bg-dark100 text-white mb-3 p-3">{article.title}</h4>
         <div className="row flex-column flex-lg-row">
-          <div className="col-lg-6">
+          <div className="col-lg-6" data-aos="flip-right">
             <img src={article.image} alt="" className="w-100 h-100 object-fit-cover"/>
           </div>
           <div className="col-lg-6">

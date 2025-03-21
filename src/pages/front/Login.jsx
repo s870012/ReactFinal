@@ -32,7 +32,7 @@ function Login (){
     <div className="bg-login pt-120 pb-80">   
       <div className="container">
         <div className="row">
-          <div className="d-flex flex-column align-items-center justify-content-center py-120 w-50 mx-auto bg-login-inside">
+          <div className="col-10 col-md-6 d-flex flex-column align-items-center justify-content-center py-120  mx-auto bg-login-inside">
             <h1 className="h3 mb-3 font-weight-normal text-center text-white100">請先登入</h1>
             <div className="col-6">
               <form id="form" className="form-signin" onSubmit={handleSubmit(login)}>

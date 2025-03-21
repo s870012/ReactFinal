@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function DeleteModal ({
   deleteRef, 
   closeModal, 
@@ -43,5 +45,24 @@ function DeleteModal ({
     </div>
   </>)
 }
+
+DeleteModal.propTypes = {
+  tempProduct: PropTypes.shape({
+    id: PropTypes.string,
+    imageUrl: PropTypes.string,
+    title: PropTypes.string,
+    category: PropTypes.string,
+    unit: PropTypes.string,
+    origin_price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    description: PropTypes.string,
+    content: PropTypes.string,
+    is_enabled: PropTypes.bool,
+    imagesUrl: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired, 
+  closeModal: PropTypes.func.isRequired,
+  deleteRef: PropTypes.object,
+  deleteProduct: PropTypes.func,
+}  
 
 export default DeleteModal;

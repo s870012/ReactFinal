@@ -179,7 +179,7 @@ function AdminArticles(){
               </div>
               <div>
                 <label htmlFor="activeDescription" className="form-label text-muted"><span className="text-danger">*</span>活動簡介</label>
-                <textarea id="activeDescription" className={`form-control rounded-0 ${errors.description && "is-invalid"}`} cols="30" rows="5"
+                <textarea id="activeDescription" className={`form-control rounded-0 ${errors.description && "is-invalid"}`} cols="30" rows="5" wrap="true"
                 {...register('description',{
                   required:{
                     value:true,
@@ -192,7 +192,7 @@ function AdminArticles(){
               </div>
               <div>
                 <label htmlFor="activeContent" className="form-label text-muted"><span className="text-danger">*</span>活動內容</label>
-                <textarea id="activeContent" className={`form-control rounded-0 ${errors.content && "is-invalid"}`} cols="30" rows="10"
+                <textarea id="activeContent" className={`form-control rounded-0 ${errors.content && "is-invalid"}`} cols="30" rows="10" wrap="true"
                 {...register('content',{
                   required:{
                     value:true,
@@ -204,7 +204,7 @@ function AdminArticles(){
                 )}
               </div>
               <div className="text-end mt-3">
-                <button type="submit" className="btn btn-primary">新增活動</button>
+                <button type="submit" className="btn btn-blue">新增活動</button>
               </div>
             </form>
           </div>

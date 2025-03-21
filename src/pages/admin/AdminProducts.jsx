@@ -212,7 +212,7 @@ function AdminProducts (){
     <div>
       <div className="container">
         <div className="text-start mt-4">
-          <button type="button" className="btn btn-primary me-3" onClick={() => openEditModal(products, 'create')}>建立新的產品</button>
+          <button type="button" className="btn btn-blue me-3" onClick={() => openEditModal(products, 'create')}>建立新的產品</button>
         </div>
         <table className="table mt-4">
           <thead>
@@ -239,7 +239,7 @@ function AdminProducts (){
                 </td>
                 <td>
                   <div className="btn-group">
-                    <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => openEditModal(product, 'edit')}>
+                    <button type="button" className="btn btn-outline-blue btn-sm" onClick={() => openEditModal(product, 'edit')}>
                       編輯
                     </button>
                     <button type="button" className="btn btn-outline-danger btn-sm" onClick={() => deleteModal(product)}>

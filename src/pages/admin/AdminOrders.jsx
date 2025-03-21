@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { createMessage } from "../../slices/messageSlice";
+
 import Loading from "../../components/Loading";
+import MessageToast from "../../components/MessageToast";
 // import Pagination from "../../components/Pagination";
 
 const url = import.meta.env.VITE_BASE_URL; 
@@ -10,10 +14,12 @@ function AdminOrders(){
   const [isLoading, setIsLoading] =useState(false);
   // const [pagination, setPagination] = useState({})
 
-  const getAdminOrders = async(page = 1) => {
+  const dispatch = useDispatch();
+
+  const getAdminOrders = async() => {
     setIsLoading(true)
     try {
-      const res = await axios.get(`${url}/api/${path}/admin/orders?page=${page}`)
+      const res = await axios.get(`${url}/api/${path}/admin/orders`)
       setOrdersData(res.data.orders)
       // setPagination(res.data.pagination)
     } catch (error) {
@@ -33,21 +39,29 @@ function AdminOrders(){
 
   //變更訂單狀態
   const handleOrderPaid = async(order_id, order) => {
-    let {is_paid, id, ...preData} = order
+    console.log(order);
+    
+    let {is_paid, id, user, total, ...preData} = order
+    let {creditNum, expiryDate, cvc, ...preUser} = user
+    user = preUser
     if(is_paid === false){
       is_paid = true;
     } else {
       is_paid = false
     }
     const data = {
-      ...preData,
-      message:"",
-      is_paid 
+      data:{
+        ...preData,
+        user,
+        message:"",
+        is_paid 
+      }
     }
+    console.log(data);
     try {
       await axios.put(`${url}/api/${path}/admin/order/${order_id}`, id, data)
     } catch (error) {
-      console.log(error);
+      console.dir(error);
     }
   }
 
@@ -57,6 +71,10 @@ function AdminOrders(){
     try {
       await axios.delete(`${url}/api/${path}/admin/order/${id}`)
       getAdminOrders();
+      dispatch(createMessage({
+        text:"刪除訂單成功",
+        status:"success"
+      }))
     } catch (error) {
       console.log(error);
     } finally {
@@ -66,6 +84,7 @@ function AdminOrders(){
   
   return (<>
     <Loading isLoading={isLoading} />
+    <MessageToast />
     <div>
       <div className="container">
         <table className="table mt-4">

@@ -13,7 +13,6 @@ function MessageToast(){
       const messageEl = messageRefs.current[message.id];
       if(messageEl) {
         const messageInstance = new Toast(messageEl)
-
         messageInstance.show();
       }
       setTimeout(() => {
@@ -22,8 +21,18 @@ function MessageToast(){
     })
   },[messages])
 
+  const closeMessage = () => {
+    messages.forEach((message) => {
+      const messageEl = messageRefs.current[message.id];
+      if(messageEl) {
+        const messageInstance = new Toast(messageEl)
+        messageInstance.hide();
+      }
+    })
+  }
+
   return(<>
-    <div className="position-fixed top-0 end-0 p-3 mb-3" style={{ zIndex: 1000 }}>
+    <div className="position-fixed top-50 start-50 translate-middle p-3 mb-3" style={{ zIndex: 1000 }}>
       {messages.map((message) => {
         return(
           <div key={message.id} ref={(el) => messageRefs.current[message.id] = el} className="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -35,6 +44,7 @@ function MessageToast(){
                 type="button"
                 className="btn-close"
                 aria-label="Close"
+                onClick={closeMessage}
               ></button>
             </div>
             <div className="toast-body text-start">{message.text}</div>

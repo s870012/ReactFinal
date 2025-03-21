@@ -230,7 +230,7 @@ function Checkout () {
                 </div>
                 <div>
                   <label htmlFor="message" className="form-label">意見回饋</label>
-                  <textarea id="message" className="form-control" cols="30" rows="5"
+                  <textarea id="message" className="form-control" cols="30" rows="5" style={{resize:'none'}}
                   {...register('message')}></textarea>
                 </div>
                 <div className="d-flex flex-column-reverse flex-md-row mt-4 justify-content-between align-items-md-center align-items-end w-100">
