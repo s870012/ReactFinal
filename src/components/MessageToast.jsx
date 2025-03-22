@@ -36,18 +36,17 @@ function MessageToast(){
       {messages.map((message) => {
         return(
           <div key={message.id} ref={(el) => messageRefs.current[message.id] = el} className="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div className={`toast-header ${message.status ==='success' ? 'bg-success' : 'bg-danger'} text-white`}>
-              <strong className="me-auto">
+            <div className="toast-header border-0">
+              <h4 className="mx-auto ">
                 {message.status === 'success' ? '成功' : '失敗'}
-              </strong>
-              <button
-                type="button"
-                className="btn-close"
-                aria-label="Close"
-                onClick={closeMessage}
-              ></button>
+              </h4>
             </div>
-            <div className="toast-body text-start">{message.text}</div>
+            <div className="toast-body text-center fs-5">{message.text}</div>
+            <button
+                type="button"
+                className="d-block mx-auto rounded-circle bg-white100 border-0"
+                onClick={closeMessage}
+            ><i className={`bi ${message.status ==='success' ? 'bi-check-circle-fill text-blue' : 'bi-x-circle-fill text-danger'} fs-2`}></i></button>
           </div>
         )
       })}

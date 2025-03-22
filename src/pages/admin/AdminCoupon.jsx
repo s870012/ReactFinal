@@ -1,16 +1,25 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import * as bootstrap from 'bootstrap'
+
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { createMessage } from "../../slices/messageSlice";
+
+import { useDispatch } from "react-redux";
+import MessageToast from "../../components/MessageToast";
 import Loading from "../../components/Loading";
+import CouponModal from "../../components/CouponModal";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
 function AdminCoupon () {
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
-    formState : {errors}
+    formState : {errors},
+    reset
   } = useForm();
 
   const onSubmit = (data) => {
@@ -32,6 +41,7 @@ function AdminCoupon () {
       await axios.post(`${url}/api/${path}/admin/coupon`, data)
       console.log("新增優惠券成功");
       getCoupons();
+      reset();
     } catch (error) {
       console.log(error);
     } finally {
@@ -41,6 +51,13 @@ function AdminCoupon () {
 
   //取得憂患券
   const [couponData, setCouponData] = useState([])
+  const [tempCoupon, setTempCoupon] = useState({
+    title:"",
+    is_enabled:false,
+    percent:0,
+    due_date:0,
+    code:""
+  })
   const getCoupons = async() => {
     setIsLoading(true)
     try {
@@ -64,8 +81,72 @@ function AdminCoupon () {
   //刪除優惠券
   const deleteCoupon = async(id) => {
     try {
-      await axios.delete(`${url}/api/${path}/admin/coupon/${id}`)
+      const yes = window.confirm("確定刪除?")
+      if(yes == true){        
+        await axios.delete(`${url}/api/${path}/admin/coupon/${id}`)
+        getCoupons();
+        setTempCoupon({
+          title:"",
+          is_enabled:false,
+          percent:0,
+          due_date:0,
+          code:""
+        })
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //編輯Coupon Modal
+  const controlModal = useRef(null);
+  const editModalRef = useRef(null);
+  const openEditModal = async(coupon) => {
+    setTempCoupon({
+      ...coupon,
+      due_date: new Date(coupon.due_date).getFullYear()+'/'+ (new Date(coupon.due_date).getMonth()+1)+'/'+new Date(coupon.due_date).getDate()
+    })
+    controlModal.current = new bootstrap.Modal(editModalRef.current)
+    controlModal.current.show()
+  }
+
+  const closeModal=()=>{
+    controlModal.current.hide();
+  }
+
+  //編輯優惠券
+  const handleCouponInput = (e) => {    
+    const {id, value, type, checked} = e.target
+    setTempCoupon({
+      ...tempCoupon,
+      [id]:type == 'checkbox' ? checked : value
+    })
+  }
+
+  const editCoupon = async (id) => {
+    const couponData = {
+      data : {
+        ...tempCoupon,
+        is_enabled:tempCoupon.is_enabled? 1 : 0,
+        percent:Number(tempCoupon.percent),
+        due_date:Number(new Date(tempCoupon.due_date))
+      }
+    }
+    try {
+      await axios.put(`${url}/api/${path}/admin/coupon/${id}`, couponData)
+      dispatch(createMessage({
+        text:"編輯成功",
+        status:"success"
+      }))
+      closeModal();
       getCoupons();
+      setTempCoupon({
+        title:"",
+        is_enabled:false,
+        percent:0,
+        due_date:0,
+        code:""
+      })
     } catch (error) {
       console.log(error);
     }
@@ -73,10 +154,18 @@ function AdminCoupon () {
 
   return(<>
     <Loading isLoading={isLoading} />
+    <MessageToast />
+    <CouponModal 
+      tempCoupon={tempCoupon}
+      editCoupon={editCoupon} 
+      editModalRef={editModalRef} 
+      handleCouponInput={handleCouponInput} 
+      closeModal={closeModal}
+    />
     <div>
       <div className="container">
-        <div className="row flex-column">
-          <div className="col-lg-10 mx-auto">
+        <div className="row">
+          <div className="col-lg-10 mx-auto border py-3 my-3">
             <h4 className="fw-bold mt-4 mb-3">優惠券管理</h4>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
@@ -153,6 +242,7 @@ function AdminCoupon () {
                 <th>優惠券名稱</th>
                 <th>優惠券折扣</th>
                 <th>優惠券期限</th>
+                <th>優惠券狀態</th>
                 <th>編輯</th>
               </tr>
             </thead>
@@ -164,7 +254,9 @@ function AdminCoupon () {
                     <td>{coupon.title}</td>
                     <td>{coupon.percent}</td>
                     <td>{coupon.due_date}</td>
+                    <td className={`${coupon.is_enabled === 1 ? 'text-info' : 'text-danger'}`}>{coupon.is_enabled === 1 ? '啟用中' : '未啟用'}</td>
                     <td>
+                      <button className="btn btn-outline-blue" onClick={() => openEditModal(coupon)}>編輯</button>
                       <button className="btn btn-outline-danger" onClick={() => deleteCoupon(coupon.id)}>刪除</button>
                     </td>
                   </tr>

@@ -1,5 +1,4 @@
 import { NavLink } from "react-router"
-import logo from "../assets/images/logo.png"
 
 import { asyncGetCart } from "../slices/cartSlice"
 import { useSelector, useDispatch } from "react-redux"
@@ -26,9 +25,9 @@ function Navbar (){
   
   return(<>
     <div className="position-fixed w-100 bg-primary" style={{zIndex:"1000"}}>
-      <div className="container d-flex flex-column">
-        <nav className="navbar navbar-expand-md navbar-light">
-          <NavLink className="navbar-brand" to="/"><img src={logo} alt="logo" style={{height:"40px"}}/></NavLink>
+      <div className="container d-flex flex-column justify-content-center">
+        <nav className="navbar navbar-expand-md">
+          <h1 className="navbar-brand p-0 me-0"><NavLink className="logo-mark" to="/">black heart</NavLink></h1>
           <div className="d-flex align-items-center">
             <NavLink className="d-md-none me-4" to="/cart">
               <div className="position-relative">
@@ -50,7 +49,7 @@ function Navbar (){
             <div className="navbar-nav d-flex align-items-center">
               {routes.map((route) => {
                 return (
-                  <NavLink key={route.path} className="nav-item nav-link me-4 active text-dark100" to={route.path}>
+                  <NavLink key={route.path} className="nav-item nav-link me-4 active text-dark200" to={route.path}>
                     {route.name === "購物車" ? (
                       <div className="position-relative d-none d-md-block">
                         <i className="bi bi-cart-fill fs-5 hover-base200"></i>

@@ -12,17 +12,17 @@ function Pagination ({pagination, getProducts, products}){
       <nav>
         <ul className="pagination">
           <li className={`page-item ${pagination.has_pre ? '' : 'disabled'}`}>
-            <a href="#" className="page-link" onClick={(e) => handlePageChange(e, pagination.current_page - 1)}>上一頁</a>
+            <a href="#" className="page-link text-dark200" onClick={(e) => handlePageChange(e, pagination.current_page - 1)}>上一頁</a>
           </li>
           {Array.from({length:pagination.total_pages}).map ((_, index) => {
             return (<li className={`page-item ${pagination.current_page === index +1 ? 'active' : ''}`} key={index}>
-              <a className="page-link" href="#" onClick={(e) => handlePageChange(e, index + 1)}>
+              <a className="page-link text-dark200" href="#" onClick={(e) => handlePageChange(e, index + 1)}>
                 {index + 1 }
               </a>
             </li>)
           })}
           <li className={`page-item ${pagination.has_next ? '' : 'disabled'}`}>
-            <a className="page-link" href="#" onClick={(e) => handlePageChange(e, pagination.current_page + 1)}>下一頁</a>
+            <a className="page-link text-dark200" href="#" onClick={(e) => handlePageChange(e, pagination.current_page + 1)}>下一頁</a>
           </li>
         </ul>
       </nav>

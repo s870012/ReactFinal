@@ -14,30 +14,30 @@ function AdminLayout () {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
-  const checkLogin = async() => {
-    try {
-      await axios.post(`${url}/api/user/check`)
-      dispatch(createMessage({
-        text:'登入成功',
-        status:'success'
-      }))
-    } catch (error) {
-      console.log(error);
-      dispatch(createMessage({
-        text:'登入失敗',
-        status:'false'
-      }))
-      navigate('/')
-    }
-  }
-
   useEffect(() => {
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
       "$1",
     );
     axios.defaults.headers.common['Authorization'] = `${token}`;
-    checkLogin();
+    
+    (async() => {
+      try {
+        await axios.post(`${url}/api/user/check`)
+        dispatch(createMessage({
+          text:'登入成功',
+          status:'success'
+        }))
+      } catch (error) {
+        console.log(error);
+        dispatch(createMessage({
+          text:'登入失敗',
+          status:'false'
+        }))
+        navigate('/')
+      }
+    })()
+
     Aos.init();
   },[])
 

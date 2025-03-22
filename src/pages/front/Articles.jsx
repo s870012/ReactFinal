@@ -30,7 +30,7 @@ function Articles() {
 
   return(<>
     <Loading isLoading={isLoading}/>
-    <div className="position-relative d-flex align-items-center justify-content-center pt-66" style={{minHeight: "300px"}}>
+    <div className="position-relative d-flex align-items-center justify-content-center pt-62" style={{minHeight: "300px"}}>
       <div className="position-absolute article-banner-position article-banner-img"></div>
       <h2 className="fs-1 text-white">活動訊息</h2>
     </div>

@@ -38,43 +38,40 @@ function AdminOrders(){
   },[])
 
   //變更訂單狀態
-  const handleOrderPaid = async(order_id, order) => {
-    console.log(order);
-    
-    let {is_paid, id, user, total, ...preData} = order
-    let {creditNum, expiryDate, cvc, ...preUser} = user
-    user = preUser
-    if(is_paid === false){
-      is_paid = true;
-    } else {
-      is_paid = false
-    }
-    const data = {
-      data:{
-        ...preData,
-        user,
-        message:"",
-        is_paid 
-      }
-    }
-    console.log(data);
-    try {
-      await axios.put(`${url}/api/${path}/admin/order/${order_id}`, id, data)
-    } catch (error) {
-      console.dir(error);
-    }
-  }
+  // const handleOrderPaid = async(order_id, order) => {
+  //   let {is_paid, id, ...preOrder} = order
+  //   if(is_paid === false){
+  //     is_paid = true;
+  //   } else {
+  //     is_paid = false
+  //   }
+  //   const data = {
+  //     data:{
+  //       ...preOrder,
+  //       is_paid,
+  //     }
+  //   }
+  //   console.log(data);
+  //   try {
+  //     await axios.put(`${url}/api/${path}/admin/order/${order_id}`, id, data)
+  //   } catch (error) {
+  //     console.dir(error);
+  //   }
+  // }
 
   //刪除訂單
   const deleteOrder = async(id) => {
-    setIsLoading(true)
     try {
+    const yes = window.confirm("確定刪除訂單?")
+    if(yes == true){
+      setIsLoading(true)
       await axios.delete(`${url}/api/${path}/admin/order/${id}`)
       getAdminOrders();
       dispatch(createMessage({
         text:"刪除訂單成功",
         status:"success"
       }))
+    }
     } catch (error) {
       console.log(error);
     } finally {
@@ -110,7 +107,7 @@ function AdminOrders(){
                   <td>{order.user.address}</td>
                   <td>{order.user.email}</td>
                   <td>{order.total}</td>
-                  <td className={`hover  ${order.is_paid === true ? 'text-success' : 'text-info'}`} onClick={() => handleOrderPaid(order.id, order)}>
+                  <td className={`hover  ${order.is_paid === true ? 'text-success' : 'text-info'}`} >
                     {order.is_paid === true ? '已付款' : '未付款'}
                   </td>
                   <td><button type="button" className="btn btn-outline-danger" onClick={() => deleteOrder(order.id)}>刪除</button></td>

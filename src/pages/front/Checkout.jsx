@@ -30,9 +30,10 @@ function Checkout () {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    
-    const {payment, message, checked, ...user} = data;
+    const {payment, message, checked, ...preUser} = data;
+    const {cvc, expiryDate, creditNum, ...user } = preUser;
+    let otherData = {payment, checked, cvc, expiryDate, creditNum}
+    console.log(otherData);
     const orderInfo = {
       data:{
         user,

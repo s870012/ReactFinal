@@ -104,7 +104,7 @@ function AdminArticles(){
           </tbody>
         </table>
       </div>
-      <div className="container">
+      <div className="container mb-3">
         <div className="row flex-column">
           <div className="col-lg-10 mx-auto border p-4 rounded-3">
             <h4 className="fw-bold mt-4 mb-3">活動管理</h4>

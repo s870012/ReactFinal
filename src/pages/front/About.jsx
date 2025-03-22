@@ -1,7 +1,7 @@
 
 function About(){
   return(<>
-    <div className="position-relative d-flex align-items-center justify-content-center pt-66" style={{minHeight: "300px"}}>
+    <div className="position-relative d-flex align-items-center justify-content-center pt-62" style={{minHeight: "300px"}}>
       <div className="position-absolute banner-position banner-img"></div>
       <h2 className="fs-1 fw-bold text-white">品牌故事</h2>
     </div>

@@ -147,13 +147,13 @@ function Cart() {
                     })}
                   </tbody>
                 </table>
-                <div className="input-group w-50 mb-3">
-                  <input type="text" className="form-control rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none disabled" placeholder="請輸入折扣碼" aria-label="Recipient's username" aria-describedby="button-addon2"
+                <div className="input-group align-items-center w-50 mb-3">
+                  <input type="text" className="form-control rounded-0 border-bottom border-top-0 border-start-0 border-end-0 shadow-none w-50" placeholder="請輸入折扣碼" aria-label="Recipient's username" aria-describedby="button-addon2"
                   value={couponCode} onChange={(e) => setCouponCode(e.target.value)}/>
                   <div className="input-group-append">
                     <button className={`btn btn-outline-dark border-bottom border-top-0 border-start-0 border-end-0 rounded-0 `} type="button" id="button-addon2" onClick={() => handleCoupon()} ><i className="bi bi-send-fill"></i></button>
-                    <span className="fs-7 text-dark300">如新增商品，請重新輸入折扣碼</span>
                   </div>
+                  <span className="fs-7 text-dark300">如新增商品，請重新輸入折扣碼</span>
                 </div>
               </div>
               <div className="col-md-4">

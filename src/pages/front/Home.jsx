@@ -58,7 +58,7 @@ function Home (){
 
   return(<>
     <section className="bg-white100">
-      <div className="container pt-66 pb-5">
+      <div className="container pt-62 pb-5">
         <div className="row flex-md-row-reverse flex-column">
           <div className="col-md-6">
             <img src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="img-fluid"/>

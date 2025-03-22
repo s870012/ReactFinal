@@ -122,8 +122,16 @@ function AdminProducts (){
     } catch (error) {
       if(tempProduct.id===''){
         console.log('新增產品失敗', error);
+        dispatch(createMessage({
+          text:'新增產品失敗',
+          status:'false'
+        }))
       } else {
         console.log('編輯產品失敗', error);
+        dispatch(createMessage({
+          text:'編輯產品失敗',
+          status:'false'
+        }))
       };
     } 
   };

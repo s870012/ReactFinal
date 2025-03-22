@@ -81,7 +81,7 @@ function ProductDetail (){
     <Loading isLoading={isLoading} />
     <MessageToast />
     <div className="bg-white100">
-      <div className="container pt-66">
+      <div className="container pt-62">
         <div className="row align-items-center">
           <div className="col-md-7">
             <Swiper

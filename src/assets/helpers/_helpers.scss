@@ -81,3 +81,15 @@
 .bg-login-inside{
   background-color: rgb(0, 0, 0, 0.85);
 }
+
+.logo-mark{
+  background-image: url("/src/assets/images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 40px;
+  display: block;
+  text-indent: 101%;
+  overflow: hidden;
+  white-space: nowrap;
+}
