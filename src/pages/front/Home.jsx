@@ -96,7 +96,7 @@ function Home (){
         <div className="row mt-5">
           {articles.map((article) => {
             return(
-              <div key={article.id} className="col-md-6 mt-md-4" data-aos="fade-up">
+              <div key={article.id} className="col-md-6 mt-4" data-aos="fade-up">
                 <div className="card border-0 mb-4 shadow position-relative h-100">
                   <img
                     src={article.image}

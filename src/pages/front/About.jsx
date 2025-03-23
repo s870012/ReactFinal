@@ -53,7 +53,7 @@ function About(){
                 </div>
               </div>
             </div>
-            <p className="fw-bold text-end fs-5" data-aos="fade-up">—— Black Heart Bakery，黑，讓味道更深刻。</p>
+            <p className="fw-bold text-end fs-6 fs-md-5" data-aos="fade-up">—— Black Heart Bakery，黑，讓味道更深刻。</p>
           </div>
         </div>
       </div>
