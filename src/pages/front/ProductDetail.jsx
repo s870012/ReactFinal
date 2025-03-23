@@ -34,7 +34,7 @@ function ProductDetail (){
         console.log(error)
       }
     })()
-  }, [id])
+  }, [id,dispatch])
 
   //新增購物車品項
   const addCartItem = async (product_id, qty) => {

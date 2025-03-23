@@ -8,18 +8,16 @@ function ArticleDetail (){
   const [article, setArticle] = useState({});
   const { id } = useParams();
 
-  const getArticle = async() => {
-    try {
-      const res = await axios.get(`${url}/api/${path}/article/${id}`)
-      setArticle(res.data.article)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
-    getArticle();
-  },[])
+    (async() => {
+      try {
+        const res = await axios.get(`${url}/api/${path}/article/${id}`)
+        setArticle(res.data.article)
+      } catch (error) {
+        console.log(error);
+      }
+    })()
+  },[id])
   
   return(<>
     <div className="position-relative d-flex align-items-center justify-content-center pt-62" style={{minHeight: "300px"}}>

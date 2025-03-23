@@ -24,7 +24,7 @@ function Cart() {
       dispatch(asyncGetCart())
       dispatch(asyncGetProducts())
     })()
-  },[])
+  },[dispatch])
 
   //編輯購物車產品數量
   const editCartItem = async(id, product_id, qty) => {

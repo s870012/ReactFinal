@@ -1,7 +1,7 @@
 import axios from "axios"
 
 import { Link } from "react-router"
-import { useEffect,  useState } from "react"
+import { useEffect,  useState, useCallback } from "react"
 
 import Pagination from "../../components/Pagination"
 import Loading from "../../components/Loading"
@@ -29,7 +29,7 @@ function Products (){
     getAllProducts();
   },[])
 
-  const getProducts = async(page =1) => {
+  const getProducts = useCallback(async(page =1) => {
     setIsLoading(true)
     try {
       const res = await axios.get(`${url}/api/${path}/products?category=${selectCategory === '全部商品' ? '' : selectCategory}&page=${page}`)
@@ -40,11 +40,11 @@ function Products (){
     } finally {
       setIsLoading(false)
     }
-  }
+  },[selectCategory])
 
   useEffect(() => {
     getProducts()
-  }, [selectCategory])
+  }, [selectCategory, getProducts])
 
   const categories = ['全部商品', ...new Set(allProducts.map((product) => product.category))] 
 

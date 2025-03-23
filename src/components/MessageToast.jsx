@@ -19,7 +19,7 @@ function MessageToast(){
         dispatch(asyncRemoveMessage(message.id))
       }, 2000)
     })
-  },[messages])
+  },[messages, dispatch])
 
   const closeMessage = () => {
     messages.forEach((message) => {

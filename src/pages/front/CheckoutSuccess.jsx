@@ -13,7 +13,7 @@ function CheckoutSuccess () {
     (async() => {
       dispatch(asyncGetOrders())
     })()
-  },[])
+  },[dispatch])
 
   return (<>
     <div className="position-relative d-flex">

@@ -39,7 +39,7 @@ function AdminLayout () {
     })()
 
     Aos.init();
-  },[])
+  },[dispatch, navigate])
 
   return(<>
     <AdminNavbar />
