@@ -24,9 +24,12 @@ function AdminNavbar(){
 
   return(<>
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-      <div className="container">
+      <div className="container-fluid">
         <div className="navbar-brand" href="#">後台管理</div>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ul className="navbar-nav me-auto mb-2 mb-sm-0">
             {routes.map((route) => {
               return (
