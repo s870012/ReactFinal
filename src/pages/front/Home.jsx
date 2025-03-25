@@ -190,7 +190,7 @@ function Home (){
             <div className="col-md-4 text-center promote-content">
               <h3 className="text-nowrap fw-bold">新鮮出爐，幸福滿滿</h3>
               <p className="text-dark">美味不等人，趕快來品嚐我們的手工烘焙<br/>讓幸福從每一口開始</p>
-              <button className="btn btn-dark mt-4 rounded-2">探尋美味</button>
+              <button className="btn btn-dark mt-4 rounded-2"><Link to="./products" className="text-decoration-none text-white100">探尋美味</Link></button>
             </div>
           </div>
         </div>
