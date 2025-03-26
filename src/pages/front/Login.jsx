@@ -2,10 +2,14 @@ import axios from "axios"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router";
 
+import { createMessage } from "../../slices/messageSlice";
+import MessageToast from "../../components/MessageToast";
+import { useDispatch } from "react-redux";
+
 const url = import.meta.env.VITE_BASE_URL; 
 function Login (){
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -25,10 +29,15 @@ function Login (){
       reset();
     } catch (error) {
       console.log(error);
+      dispatch(createMessage({
+        text:error.response.data.message,
+        status:"false"
+      }))
     }
   }
   
   return(<>
+    <MessageToast />
     <div className="bg-login pt-120 pb-80">   
       <div className="container">
         <div className="row">

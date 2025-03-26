@@ -10,7 +10,9 @@ import { useSelector, useDispatch } from "react-redux"
 
 import { asyncGetProducts } from "../../slices/productsSlice";
 import { asyncGetCart } from "../../slices/cartSlice";
-import cart from "../../assets/images/cart.png"
+import { createMessage } from "../../slices/messageSlice";
+import cart from "../../assets/images/cart.png";
+import MessageToast from "../../components/MessageToast";
 
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
@@ -62,13 +64,22 @@ function Cart() {
     }
     try {
       await axios.post(`${url}/api/${path}/coupon`, data)
+      dispatch(createMessage({
+        text:"套用優惠券成功",
+        status:"success"
+      }))
       dispatch(asyncGetCart())
     } catch (error) {
       console.log(error);
+      dispatch(createMessage({
+        text: error.response.data.message,
+        status:"false"
+      }))
     }
   }
 
   return(<>
+    <MessageToast />
     <div className="container pt-120">
       <div className="mt-3">
         <div className="mb-5">
@@ -184,7 +195,7 @@ function Cart() {
       </div>
     </div>
     {cartData?.carts?.length !== 0 && (
-      <div>
+      <div className="my-5">
         <div className="container">
           <h3 className="fw-bold mb-2">其他產品</h3>
         </div>

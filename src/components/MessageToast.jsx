@@ -44,7 +44,7 @@ function MessageToast(){
             <div className="toast-body text-center fs-5">{message.text}</div>
             <button
                 type="button"
-                className="d-block mx-auto rounded-circle bg-white100 border-0"
+                className="d-block mx-auto rounded-circle bg-white100 border-0 "
                 onClick={closeMessage}
             ><i className={`bi ${message.status ==='success' ? 'bi-check-circle-fill text-blue' : 'bi-x-circle-fill text-danger'} fs-2`}></i></button>
           </div>

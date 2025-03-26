@@ -94,10 +94,10 @@ function ProductDetail (){
                   <SwiperSlide key={index}>
                     <div className="position-relative">
                       <img src={item} alt="itemsImg" style={{height:"400px", width:"100%",objectFit:"cover"}}/>
-                      <p type="button" className="position-absolute end-0 top-50 translate-middle-Y text-white fs-5"
-                      onClick={handleNext}>Next<i className="bi bi-chevron-right"></i></p>
-                      <p type="button" className="position-absolute start-0 top-50 translate-middle-Y text-white fs-5"
-                      onClick={handlePrev}><i className="bi bi-chevron-left"></i>Pre</p>
+                      <p type="button" className="position-absolute end-0 top-50 translate-middle-y text-white fs-5"
+                      onClick={handleNext}><i className="bi bi-chevron-right fs-1 bg-dark200 py-2 opacity-75"></i></p>
+                      <p type="button" className="position-absolute start-0 top-50 translate-middle-y text-white fs-5"
+                      onClick={handlePrev}><i className="bi bi-chevron-left fs-1 bg-dark py-2 opacity-75"></i></p>
                     </div>
                   </SwiperSlide>
                 )

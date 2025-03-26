@@ -9,11 +9,16 @@ import 'swiper/css';
 
 import  { useForm } from "react-hook-form";
 
+import { createMessage } from "../../slices/messageSlice";
+import MessageToast from "../../components/MessageToast";
+import { useDispatch } from "react-redux";
+
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
 function Home (){
   const [products, setProducts] = useState([]);
   const [articles, setArticles] = useState([]);
+  const dispatch = useDispatch();
   
   //取得全部產品
   const getProducts = async() => {
@@ -41,8 +46,11 @@ function Home (){
     reset
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = () => {
+    dispatch(createMessage({
+      text:"訂閱成功",
+      status:"success"
+    }))
     reset();
   }
   
@@ -57,6 +65,7 @@ function Home (){
   }
 
   return(<>
+    <MessageToast />
     <section className="bg-white100">
       <div className="container pt-62 pb-5">
         <div className="row flex-md-row-reverse flex-column">

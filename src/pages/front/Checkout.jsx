@@ -87,10 +87,9 @@ function Checkout () {
                 <div className="form-check mb-2">
                   <input className="form-check-input credit-control" type="radio" name="gridRadios" id="gridRadios1" value="信用卡" defaultChecked
                   {...register("payment")}/>
-                  <label className="form-check-label text-muted" htmlFor="gridRadios1">信用卡
-                  </label>
+                  <label className="form-check-label text-muted" htmlFor="gridRadios1">信用卡</label>
                   <div className="credit-info border p-3">
-                    <div>
+                    <div className="mb-3">
                       <label htmlFor="creditNum" className="form-label fs-7">信用卡號</label>
                       <input type="text" className={`form-control rounded-0 ${errors.creditNum && "is-invalid"}`} id="creditNum" placeholder="請輸入信用卡號" maxLength={16} 
                       {...register("creditNum",{
@@ -179,7 +178,7 @@ function Checkout () {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="ContactPhone" className="text-muted mb-0 form-label"><span className="text-danger">*</span>電話</label>
-                  <input type="text" className={`form-control rounded-0 ${errors.tel && "is-invalid"}`} id="ContactPhone" placeholder="請輸入連絡電話"
+                  <input type="tel" className={`form-control rounded-0 ${errors.tel && "is-invalid"}`} id="ContactPhone" placeholder="請輸入連絡電話"
                   {...register("tel", {
                     required:{
                       value:true,

@@ -58,12 +58,12 @@ const routes=[
       {
         path:'login',
         element:<Login />
-      }
+      },
+      {
+        path:'success',
+        element:<CheckoutSuccess/>
+      },
     ]
-  },
-  {
-    path:'success',
-    element:<CheckoutSuccess/>
   },
   {
     path:'admin',
