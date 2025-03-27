@@ -1,5 +1,5 @@
-import axios from "axios"
-import { useForm } from "react-hook-form"
+import axios from "axios";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 import { createMessage } from "../../slices/messageSlice";
@@ -19,7 +19,7 @@ function Login (){
 
   const login = async(data)=>{
     try {
-      const res = await axios.post(`${url}/admin/signin`, data)
+      const res = await axios.post(`${url}/admin/signin`, data);
       const {token, expired} = res.data;
 
       document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
@@ -28,11 +28,10 @@ function Login (){
       navigate('/admin')
       reset();
     } catch (error) {
-      console.log(error);
       dispatch(createMessage({
         text:error.response.data.message,
         status:"false"
-      }))
+      }));
     }
   }
   
@@ -86,4 +85,4 @@ function Login (){
   </>)
 }
 
-export default Login
+export default Login;

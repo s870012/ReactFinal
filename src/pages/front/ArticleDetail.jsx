@@ -1,9 +1,9 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 
-const url = import.meta.env.VITE_BASE_URL
-const path = import.meta.env.VITE_API_PATH
+const url = import.meta.env.VITE_BASE_URL;
+const path = import.meta.env.VITE_API_PATH;
 function ArticleDetail (){
   const [article, setArticle] = useState({});
   const { id } = useParams();
@@ -14,7 +14,7 @@ function ArticleDetail (){
         const res = await axios.get(`${url}/api/${path}/article/${id}`)
         setArticle(res.data.article)
       } catch (error) {
-        console.log(error);
+        alert(error.response.data.message);
       }
     })()
   },[id])
@@ -55,4 +55,4 @@ function ArticleDetail (){
   </>)
 }
 
-export default ArticleDetail
+export default ArticleDetail;

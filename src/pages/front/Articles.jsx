@@ -1,24 +1,24 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { Link } from "react-router"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
-import Loading from "../../components/Loading"
+import Loading from "../../components/Loading";
 
-const url = import.meta.env.VITE_BASE_URL
-const path = import.meta.env.VITE_API_PATH
+const url = import.meta.env.VITE_BASE_URL;
+const path = import.meta.env.VITE_API_PATH;
 function Articles() {
   const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
-  const [date, setDate] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
+  const [date, setDate] = useState('');
 
   const getArticles = async () => {
     setIsLoading(true);
     try {
       const res = await axios.get(`${url}/api/${path}/articles`)
-      setArticles(res.data.articles)
+      setArticles(res.data.articles);
       setDate(new Date().getMonth(res.data.articles[0].create_at) +1 + '月' + new Date().getDate(res.data.articles[0].create_at) + '日');
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -63,4 +63,4 @@ function Articles() {
   </>)
 }
 
-export default Articles
+export default Articles;

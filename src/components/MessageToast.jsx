@@ -1,23 +1,23 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Toast } from "bootstrap"
+import { Toast } from "bootstrap";
 import { asyncRemoveMessage } from "../slices/messageSlice";
 
 function MessageToast(){
   const messages = useSelector((state) => state.messages.messages);
-  const messageRefs = useRef({})
+  const messageRefs = useRef({});
   const dispatch = useDispatch();
 
   useEffect(() =>{
     messages.forEach((message) => {
       const messageEl = messageRefs.current[message.id];
       if(messageEl) {
-        const messageInstance = new Toast(messageEl)
+        const messageInstance = new Toast(messageEl);
         messageInstance.show();
       }
       setTimeout(() => {
         dispatch(asyncRemoveMessage(message.id))
-      }, 2000)
+      }, 2000);
     })
   },[messages, dispatch])
 
@@ -25,14 +25,14 @@ function MessageToast(){
     messages.forEach((message) => {
       const messageEl = messageRefs.current[message.id];
       if(messageEl) {
-        const messageInstance = new Toast(messageEl)
+        const messageInstance = new Toast(messageEl);
         messageInstance.hide();
       }
     })
   }
 
   return(<>
-    <div className="position-fixed top-50 start-50 translate-middle p-3 mb-3" style={{ zIndex: 1000 }}>
+    <div className="position-fixed top-50 start-50 translate-middle p-3 mb-3" style={{ zIndex: 2000 }}>
       {messages.map((message) => {
         return(
           <div key={message.id} ref={(el) => messageRefs.current[message.id] = el} className="toast" role="alert" aria-live="assertive" aria-atomic="true">

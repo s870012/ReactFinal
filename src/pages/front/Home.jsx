@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,30 +13,46 @@ import { createMessage } from "../../slices/messageSlice";
 import MessageToast from "../../components/MessageToast";
 import { useDispatch } from "react-redux";
 
-const url = import.meta.env.VITE_BASE_URL
-const path = import.meta.env.VITE_API_PATH
+const url = import.meta.env.VITE_BASE_URL;
+const path = import.meta.env.VITE_API_PATH;
 function Home (){
   const [products, setProducts] = useState([]);
   const [articles, setArticles] = useState([]);
   const dispatch = useDispatch();
   
   //取得全部產品
-  const getProducts = async() => {
+  const getProducts = useCallback(async () => {
     try {
-      const res = await axios.get(`${url}/api/${path}/products/all`)
-      setProducts(res.data.products)
+      const res = await axios.get(`${url}/api/${path}/products/all`);
+      setProducts(res.data.products);
     } catch (error) {
-      console.log(error);
+      dispatch(createMessage({
+        text: error.response.data.message,
+        status: "false"
+      }));
     }
-  }
+  }, [dispatch]);
+
+   //取得活動列表
+   const getArticles = useCallback(async () => {
+    try {
+      const res = await axios.get(`${url}/api/${path}/articles`);
+      setArticles(res.data.articles);
+    } catch (error) {
+      dispatch(createMessage({
+        text: error.response.data.message,
+        status: "false"
+      }));
+    }
+  }, [dispatch]);
 
   //骰選Swiper顯示品項
-  const filterProducts = products.filter(product => product.origin_price < 70)  
+  const filterProducts = products.filter(product => product.origin_price < 70); 
 
   useEffect(() => {
     getProducts();
     getArticles();
-  },[])
+  },[getArticles, getProducts])
   
   //訂閱電子報
   const {
@@ -54,15 +70,7 @@ function Home (){
     reset();
   }
   
-  //取得活動列表
-  const getArticles = async() => {
-    try {
-      const res = await axios.get(`${url}/api/${path}/articles`)
-      setArticles(res.data.articles)
-    } catch (error) {
-      console.log(error);
-    }
-  }
+ 
 
   return(<>
     <MessageToast />

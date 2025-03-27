@@ -46,7 +46,7 @@ function ProductsModal ({
                   </div>
                   <img className="img-fluid" src={tempProduct.imageUrl} alt="主圖" />
                 </div>
-                <div className="border border-2 border-dashed rounded-3 p-3">
+                <div className="border border-2 border-dashed rounded-3 p-3 mb-2">
                   {tempProduct.imagesUrl?.map((image, index) => {
                     return (<div key={index} className="mb-2">
                       <label htmlFor={`newImages${index}`} className="form-label">副圖{index + 1}</label>
@@ -68,8 +68,8 @@ function ProductsModal ({
                     </div>)
                   })}
                 </div>
-                <div>
-                  <button className="btn btn-outline-primary btn-sm d-block w-100" onClick={addImg}>
+                <div className="mb-1">
+                  <button className="btn btn-outline-blue btn-sm d-block w-100" onClick={addImg}>
                     新增圖片
                   </button>
                 </div>
@@ -148,7 +148,7 @@ function ProductsModal ({
             </div>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-outline-secondary" onClick={closeModal}>
+            <button type="button" className="btn btn-outline-danger" onClick={closeModal}>
               取消
             </button>
             <button type="button" className="btn btn-blue" onClick={editProduct}>確認</button>
@@ -183,4 +183,4 @@ ProductsModal.propTypes = {
   editModalRef: PropTypes.object
 }  
 
-export default ProductsModal
+export default ProductsModal;

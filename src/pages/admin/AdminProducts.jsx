@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as bootstrap from "bootstrap"
+import * as bootstrap from "bootstrap";
 
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -15,22 +15,22 @@ const url = import.meta.env.VITE_BASE_URL;
 const path = import.meta.env.VITE_API_PATH; 
 function AdminProducts (){
   //products
-  const [products, setProducts] = useState([])
-  const [pagination, setPagination] = useState({})
+  const [products, setProducts] = useState([]);
+  const [pagination, setPagination] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const getProducts = async(page=1) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const res = await axios.get(`${url}/api/${path}/admin/products?page=${page}`)
-      setProducts(res.data.products)
-      setPagination(res.data.pagination)
+      const res = await axios.get(`${url}/api/${path}/admin/products?page=${page}`);
+      setProducts(res.data.products);
+      setPagination(res.data.pagination);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -62,7 +62,7 @@ function AdminProducts (){
   const editModalRef = useRef(null);
   const openEditModal = (product, type) => {
     if (type == 'edit'){
-      setTempProduct(product)
+      setTempProduct(product);
     } else {
       setTempProduct({
         id: product.id || "",
@@ -78,7 +78,7 @@ function AdminProducts (){
         imagesUrl: product.imagesUrl || [],
       })
     }
-    controlModal.current = new bootstrap.Modal(editModalRef.current)
+    controlModal.current = new bootstrap.Modal(editModalRef.current);
     controlModal.current.show();
   }
 
@@ -87,7 +87,7 @@ function AdminProducts (){
     setTempProduct({
       ...tempProduct,
       [id]:type =='checkbox' ? checked : value
-    })
+    });
   }
 
   // edit product
@@ -102,37 +102,33 @@ function AdminProducts (){
       }
     }
     try {
-      let res;
       if(tempProduct.id ===''){
-        res = await axios.post(`${url}/api/${path}/admin/product`, productData)
+        await axios.post(`${url}/api/${path}/admin/product`, productData);
         dispatch(createMessage({
           text:'新增產品成功',
           status:'success'
-        }))
+        }));
       } else {
-        res = await axios.put(`${url}/api/${path}/admin/product/${tempProduct.id}`, productData)
-        console.log(res.data)
+        await axios.put(`${url}/api/${path}/admin/product/${tempProduct.id}`, productData);
         dispatch(createMessage({
           text:'編輯產品成功',
           status:'success'
-        }))
+        }));
       }
       getProducts();
       controlModal.current.hide();
     } catch (error) {
       if(tempProduct.id===''){
-        console.log('新增產品失敗', error);
         dispatch(createMessage({
-          text:'新增產品失敗',
+          text:"新增產品失敗",
           status:'false'
-        }))
+        }));
       } else {
-        console.log('編輯產品失敗', error);
         dispatch(createMessage({
-          text:'編輯產品失敗',
+          text:error.response.data.message,
           status:'false'
-        }))
-      };
+        }));
+      }
     } 
   };
 
@@ -141,11 +137,10 @@ function AdminProducts (){
     const { value } = e.target;
     const newImages = [...tempProduct.imagesUrl];
     newImages[index] = value;
-    setTempProduct(
-      {...tempProduct,
-      imagesUrl: newImages
-      }
-    )
+    setTempProduct({
+        ...tempProduct,
+        imagesUrl: newImages
+      });
   }
   
   const addImg = () => {
@@ -156,7 +151,7 @@ function AdminProducts (){
           imagesUrl: [...product.imagesUrl, ""],
         }));
       } else {
-        alert('圖片上限為五張')
+        alert('圖片上限為五張');
       }
   };
 
@@ -168,7 +163,7 @@ function AdminProducts (){
         return { ...product, imagesUrl: newImages };
       });
     } else {
-      alert('圖片至少要有一張')
+      alert('圖片至少要有一張');
     }
   } 
 
@@ -178,35 +173,35 @@ function AdminProducts (){
     const formData = new FormData();
     formData.append('file-to-upload', file);
     try {
-      const res = await axios.post(`${url}/api/${path}/admin/upload`, formData)
+      const res = await axios.post(`${url}/api/${path}/admin/upload`, formData);
       setTempProduct({
         ...tempProduct,
         imageUrl: res.data.imageUrl
-      })
+      });
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }
 
   // deleteModal
   const deleteRef = useRef(null);
   const deleteModal = (product) => {
-    controlModal.current = new bootstrap.Modal(deleteRef.current)
+    controlModal.current = new bootstrap.Modal(deleteRef.current);
     controlModal.current.show();
-    setTempProduct(product)
+    setTempProduct(product);
   }
 
   const deleteProduct = async () =>{
     try {
-      await axios.delete(`${url}/api/${path}/admin/product/${tempProduct.id}`)
+      await axios.delete(`${url}/api/${path}/admin/product/${tempProduct.id}`);
       controlModal.current.hide();
       dispatch(createMessage({
         text:'刪除產品成功',
         status:'success'
-      }))
+      }));
       getProducts();
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }
 
@@ -285,4 +280,4 @@ function AdminProducts (){
   </>)
 }
 
-export default AdminProducts
+export default AdminProducts;

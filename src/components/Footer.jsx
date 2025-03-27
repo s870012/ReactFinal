@@ -1,5 +1,5 @@
-import logoWhite from "../assets/images/logo_white.png"
-import { Link } from "react-router"
+import logoWhite from "../assets/images/logo_white.png";
+import { Link } from "react-router";
 
 function Footer (){
   return (<>

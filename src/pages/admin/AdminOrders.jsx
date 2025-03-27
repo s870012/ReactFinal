@@ -12,20 +12,20 @@ const path = import.meta.env.VITE_API_PATH;
 function AdminOrders(){
   const [ordersData, setOrdersData] = useState([]);
   const [isLoading, setIsLoading] =useState(false);
-  // const [pagination, setPagination] = useState({})
+  // const [pagination, setPagination] = useState({});
 
   const dispatch = useDispatch();
 
   const getAdminOrders = async() => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const res = await axios.get(`${url}/api/${path}/admin/orders`)
-      setOrdersData(res.data.orders)
+      const res = await axios.get(`${url}/api/${path}/admin/orders`);
+      setOrdersData(res.data.orders);
       // setPagination(res.data.pagination)
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -38,44 +38,41 @@ function AdminOrders(){
   },[])
 
   //變更訂單狀態
-  // const handleOrderPaid = async(order_id, order) => {
-  //   let {is_paid, id, ...preOrder} = order
-  //   if(is_paid === false){
-  //     is_paid = true;
-  //   } else {
-  //     is_paid = false
-  //   }
-  //   const data = {
-  //     data:{
-  //       ...preOrder,
-  //       is_paid,
-  //     }
-  //   }
-  //   console.log(data);
-  //   try {
-  //     await axios.put(`${url}/api/${path}/admin/order/${order_id}`, id, data)
-  //   } catch (error) {
-  //     console.dir(error);
-  //   }
-  // }
+  const handleOrderPaid = async(order_id, order) => {
+    const data = {
+      data:{
+        ...order,
+        is_paid:!order.is_paid
+      }
+    }
+    try {
+      setIsLoading(true);
+      await axios.put(`${url}/api/${path}/admin/order/${order_id}`, data);
+      getAdminOrders();
+    } catch (error) {
+      alert(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   //刪除訂單
   const deleteOrder = async(id) => {
     try {
     const yes = window.confirm("確定刪除訂單?")
     if(yes == true){
-      setIsLoading(true)
+      setIsLoading(true);
       await axios.delete(`${url}/api/${path}/admin/order/${id}`)
       getAdminOrders();
       dispatch(createMessage({
         text:"刪除訂單成功",
         status:"success"
-      }))
+      }));
     }
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
   
@@ -107,7 +104,7 @@ function AdminOrders(){
                   <td>{order.user.address}</td>
                   <td>{order.user.email}</td>
                   <td>{order.total}</td>
-                  <td className={`hover  ${order.is_paid === true ? 'text-success' : 'text-info'}`} >
+                  <td className={`hover hover-base100  ${order.is_paid === true ? 'text-success' : 'text-info'}`} onClick={() => handleOrderPaid(order.id, order)}>
                     {order.is_paid === true ? '已付款' : '未付款'}
                   </td>
                   <td><button type="button" className="btn btn-outline-danger" onClick={() => deleteOrder(order.id)}>刪除</button></td>
@@ -122,4 +119,4 @@ function AdminOrders(){
   </>)
 }
 
-export default AdminOrders
+export default AdminOrders;

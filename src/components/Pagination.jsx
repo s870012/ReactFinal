@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 function Pagination ({pagination, getProducts, products}){
   const handlePageChange = (e, page) => {
     e.preventDefault();
-    getProducts(page)
-    window.scrollTo(0,0)
+    getProducts(page);
+    window.scrollTo(0,0);
   }
 
   return (<>
@@ -52,4 +52,4 @@ Pagination.propTypes = {
   })
 }
 
-export default Pagination
+export default Pagination;

@@ -1,7 +1,7 @@
-import axios from "axios"
+import axios from "axios";
 
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 
 import Loading from "../../components/Loading";
 
@@ -33,20 +33,20 @@ function AdminArticles(){
 
   const addActive = async (data) => {
     try {
-      await axios.post(`${url}/api/${path}/admin/article`, data)
+      await axios.post(`${url}/api/${path}/admin/article`, data);
       getArticles();
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }
 
   const getArticles = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(`${url}/api/${path}/admin/articles`)
-      setArticles(res.data.articles)
+      const res = await axios.get(`${url}/api/${path}/admin/articles`);
+      setArticles(res.data.articles);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +66,7 @@ function AdminArticles(){
       await axios.delete(`${url}/api/${path}/admin/article/${id}`)
       getArticles();
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -214,4 +214,4 @@ function AdminArticles(){
   </>)
 }
 
-export default AdminArticles
+export default AdminArticles;

@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 function CouponModal ({tempCoupon, editCoupon, handleCouponInput, editModalRef, closeModal}){
   return(<>
@@ -21,7 +21,7 @@ function CouponModal ({tempCoupon, editCoupon, handleCouponInput, editModalRef, 
               </div>
               <div className="mb-3">
                 <label htmlFor="due_Date" className="text-muted mb-0 form-label"><span className="text-danger">*</span>優惠券期限</label>
-                <input type="text" className="form-control rounded-0" name="due_date" id="due_date" placeholder="請輸入優惠券期限" value={tempCoupon.due_date} onChange={handleCouponInput}/>
+                <input type="date" className="form-control rounded-0" name="due_date" id="due_date" placeholder="請輸入優惠券期限" value={tempCoupon.due_date} onChange={handleCouponInput}/>
               </div>
               <div className="mb-3">
                 <label htmlFor="percent" className="text-muted mb-0 form-label"><span className="text-danger">*</span>優惠券折扣</label>
@@ -67,4 +67,4 @@ CouponModal.propTypes = {
   handleCouponInput: PropTypes.func.isRequired,
   editCoupon: PropTypes.func.isRequired
 } 
-export default CouponModal
+export default CouponModal;

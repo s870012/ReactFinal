@@ -13,12 +13,12 @@ function AdminNavbar(){
   const navigate = useNavigate();
 
   const handleLogout = async(e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       await axios.post(`${url}/logout`)
-      navigate('/')
+      navigate('/');
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }
 
@@ -48,4 +48,4 @@ function AdminNavbar(){
   </>)
 }
 
-export default AdminNavbar
+export default AdminNavbar;

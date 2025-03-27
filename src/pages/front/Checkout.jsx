@@ -11,14 +11,14 @@ import Loading from "../../components/Loading";
 const url = import.meta.env.VITE_BASE_URL; 
 const path = import.meta.env.VITE_API_PATH; 
 function Checkout () {
-  const cartData = useSelector((state) => state.cart.data)
+  const cartData = useSelector((state) => state.cart.data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async() => {
-      dispatch(asyncGetCart())
+      dispatch(asyncGetCart());
     })()
   }, [ dispatch ])
 
@@ -32,7 +32,7 @@ function Checkout () {
   const onSubmit = (data) => {
     const {payment, message, checked, ...preUser} = data;
     const {cvc, expiryDate, creditNum, ...user } = preUser;
-    let otherData = {payment, checked, cvc, expiryDate, creditNum}
+    let otherData = {payment, checked, cvc, expiryDate, creditNum};
     console.log(otherData);
     const orderInfo = {
       data:{
@@ -40,18 +40,18 @@ function Checkout () {
         message
       }
     }
-    handleOrder(orderInfo)
+    handleOrder(orderInfo);
   }
 
   //送出訂單
   const handleOrder = async(data) => {
     setIsLoading(true);
     try {
-      await axios.post(`${url}/api/${path}/order`, data)
+      await axios.post(`${url}/api/${path}/order`, data);
       navigate('/success');
       reset();
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -284,4 +284,4 @@ function Checkout () {
   </>)
 }
 
-export default Checkout
+export default Checkout;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap';
 
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -31,40 +31,40 @@ function AdminCoupon () {
         due_date:Number(new Date(data.due_date))
       }
     }
-    addCoupon(couponData)
+    addCoupon(couponData);
   }
 
   //新增憂患券
   const addCoupon = async(data) => {
     setIsLoading(true)
     try {
-      await axios.post(`${url}/api/${path}/admin/coupon`, data)
+      await axios.post(`${url}/api/${path}/admin/coupon`, data);
       console.log("新增優惠券成功");
       getCoupons();
       reset();
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
   }
 
   //取得憂患券
-  const [couponData, setCouponData] = useState([])
+  const [couponData, setCouponData] = useState([]);
   const [tempCoupon, setTempCoupon] = useState({
     title:"",
     is_enabled:false,
     percent:0,
     due_date:0,
     code:""
-  })
+  });
   const getCoupons = async() => {
     setIsLoading(true)
     try {
-      const res = await axios.get(`${url}/api/${path}/admin/coupons`)
-      setCouponData(res.data.coupons)
+      const res = await axios.get(`${url}/api/${path}/admin/coupons`);
+      setCouponData(res.data.coupons);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +94,7 @@ function AdminCoupon () {
         })
       }
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }
 
@@ -104,10 +104,10 @@ function AdminCoupon () {
   const openEditModal = async(coupon) => {
     setTempCoupon({
       ...coupon,
-      due_date: new Date(coupon.due_date).getFullYear()+'/'+ (new Date(coupon.due_date).getMonth()+1)+'/'+new Date(coupon.due_date).getDate()
-    })
-    controlModal.current = new bootstrap.Modal(editModalRef.current)
-    controlModal.current.show()
+      due_date: new Date(coupon.due_date).getFullYear()+'-'+ (new Date(coupon.due_date).getMonth()+1)+'-'+new Date(coupon.due_date).getDate()
+    });
+    controlModal.current = new bootstrap.Modal(editModalRef.current);
+    controlModal.current.show();
   }
 
   const closeModal=()=>{
@@ -120,7 +120,7 @@ function AdminCoupon () {
     setTempCoupon({
       ...tempCoupon,
       [id]:type == 'checkbox' ? checked : value
-    })
+    });
   }
 
   const editCoupon = async (id) => {
@@ -133,11 +133,11 @@ function AdminCoupon () {
       }
     }
     try {
-      await axios.put(`${url}/api/${path}/admin/coupon/${id}`, couponData)
+      await axios.put(`${url}/api/${path}/admin/coupon/${id}`, couponData);
       dispatch(createMessage({
         text:"編輯成功",
         status:"success"
-      }))
+      }));
       closeModal();
       getCoupons();
       setTempCoupon({
@@ -146,9 +146,9 @@ function AdminCoupon () {
         percent:0,
         due_date:0,
         code:""
-      })
+      });
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }
 
@@ -253,7 +253,7 @@ function AdminCoupon () {
                     <td>{coupon.code}</td>
                     <td>{coupon.title}</td>
                     <td>{coupon.percent}</td>
-                    <td>{coupon.due_date}</td>
+                    <td>{new Date(coupon.due_date).getFullYear()+'/'+ (new Date(coupon.due_date).getMonth()+1)+'/'+new Date(coupon.due_date).getDate()}</td>
                     <td className={`${coupon.is_enabled === 1 ? 'text-info' : 'text-danger'}`}>{coupon.is_enabled === 1 ? '啟用中' : '未啟用'}</td>
                     <td>
                       <button className="btn btn-outline-blue" onClick={() => openEditModal(coupon)}>編輯</button>
@@ -270,4 +270,4 @@ function AdminCoupon () {
   </>)
 }
 
-export default AdminCoupon
+export default AdminCoupon;

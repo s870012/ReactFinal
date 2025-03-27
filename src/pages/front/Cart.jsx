@@ -23,8 +23,8 @@ function Cart() {
   
   useEffect(() => {
     (async() => {
-      dispatch(asyncGetCart())
-      dispatch(asyncGetProducts())
+      dispatch(asyncGetCart());
+      dispatch(asyncGetProducts());
     })()
   },[dispatch])
 
@@ -37,24 +37,30 @@ function Cart() {
           qty:Number(qty)
         }
       })
-      dispatch(asyncGetCart())
+      dispatch(asyncGetCart());
     } catch (error) {
-      console.log(error);
+      dispatch(createMessage({
+        text:error.response.data.message,
+        status:"false"
+      }));
     }
   }  
 
   //刪除購物車單一產品
   const deleteCartItem = async(id) => {
     try {
-      await axios.delete(`${url}/api/${path}/cart/${id}`)
-      dispatch(asyncGetCart())
+      await axios.delete(`${url}/api/${path}/cart/${id}`);
+      dispatch(asyncGetCart());
     } catch (error) {
-      console.log(error);
+      dispatch(createMessage({
+        text:error.response.data.message,
+        status:"false"
+      }));
     }
   }
 
   //優惠券
-  const [couponCode, setCouponCode] = useState('')
+  const [couponCode, setCouponCode] = useState('');
 
   const handleCoupon = async() => {
     const data = {
@@ -63,18 +69,17 @@ function Cart() {
       }
     }
     try {
-      await axios.post(`${url}/api/${path}/coupon`, data)
+      await axios.post(`${url}/api/${path}/coupon`, data);
       dispatch(createMessage({
         text:"套用優惠券成功",
         status:"success"
-      }))
-      dispatch(asyncGetCart())
+      }));
+      dispatch(asyncGetCart());
     } catch (error) {
-      console.log(error);
       dispatch(createMessage({
         text: error.response.data.message,
         status:"false"
-      }))
+      }));
     }
   }
 
@@ -235,4 +240,4 @@ function Cart() {
   </>)
 }
 
-export default Cart
+export default Cart;

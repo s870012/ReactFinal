@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router";
 
 function NotFound(){
   const navigate = useNavigate();
 
   useEffect(()=>{
     setTimeout(() => {
-      navigate('/')
+      navigate('/');
     }, 3000);
   },[navigate])
 
@@ -15,4 +15,4 @@ function NotFound(){
   </>)
 }
 
-export default NotFound
+export default NotFound;

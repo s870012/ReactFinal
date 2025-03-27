@@ -1,44 +1,47 @@
-import axios from "axios"
+import axios from "axios";
 
 //swiper
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay } from "swiper/modules"
-import 'swiper/css'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import 'swiper/css';
 
-import { useEffect, useRef, useState } from "react"
-import { useParams, Link } from "react-router"
-import { useSelector, useDispatch } from "react-redux"
-import { asyncGetProducts } from "../../slices/productsSlice"
-import { asyncGetCart } from "../../slices/cartSlice"
-import { createMessage } from "../../slices/messageSlice"
-import Loading from "../../components/Loading"
-import MessageToast from "../../components/MessageToast"
+import { useEffect, useRef, useState } from "react";
+import { useParams, Link } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { asyncGetProducts } from "../../slices/productsSlice";
+import { asyncGetCart } from "../../slices/cartSlice";
+import { createMessage } from "../../slices/messageSlice";
+import Loading from "../../components/Loading";
+import MessageToast from "../../components/MessageToast";
 
-const url = import.meta.env.VITE_BASE_URL
-const path = import.meta.env.VITE_API_PATH
+const url = import.meta.env.VITE_BASE_URL;
+const path = import.meta.env.VITE_API_PATH;
 function ProductDetail (){
-  const { id } = useParams()
+  const { id } = useParams();
   const [product, setProduct] = useState({});
   const [cartQty, setCartQty] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const products = useSelector(state => state.products.data)
-  const dispatch = useDispatch()
+  const products = useSelector(state => state.products.data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async() => {
       try {
-        const res = await axios.get(`${url}/api/${path}/product/${id}`)
-        setProduct(res.data.product)
-        dispatch(asyncGetProducts())
+        const res = await axios.get(`${url}/api/${path}/product/${id}`);
+        setProduct(res.data.product);
+        dispatch(asyncGetProducts());
       } catch (error) {
-        console.log(error)
+        dispatch(createMessage({
+          text:error.response.data.message,
+          status:"false"
+        }));
       }
-    })()
+    })();
   }, [id,dispatch])
 
   //新增購物車品項
   const addCartItem = async (product_id, qty) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       await axios.post(`${url}/api/${path}/cart`, {
         data:{
@@ -46,24 +49,24 @@ function ProductDetail (){
           qty:Number(qty)
         }
       })
-      dispatch(asyncGetCart())
+      dispatch(asyncGetCart());
       dispatch(createMessage({
         text:"已新增至購物車",
         status:"success"
-      }))
+      }));
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   //swiper
-  const swiperRef = useRef(null)
+  const swiperRef = useRef(null);
 
   const handlePrev = () => {
     if (swiperRef.current.isBeginning) {
-      swiperRef.current.slideTo(swiperRef.current.slides.length - 1)
+      swiperRef.current.slideTo(swiperRef.current.slides.length - 1);
     } else {
       swiperRef.current.slidePrev();
     }
@@ -71,7 +74,7 @@ function ProductDetail (){
 
   const handleNext = () => {
     if (swiperRef.current.isEnd) {
-      swiperRef.current.slideTo(0)
+      swiperRef.current.slideTo(0);
     } else {
       swiperRef.current.slideNext();
     }
@@ -95,7 +98,7 @@ function ProductDetail (){
                     <div className="position-relative">
                       <img src={item} alt="itemsImg" style={{height:"400px", width:"100%",objectFit:"cover"}}/>
                       <p type="button" className="position-absolute end-0 top-50 translate-middle-y text-white fs-5"
-                      onClick={handleNext}><i className="bi bi-chevron-right fs-1 bg-dark200 py-2 opacity-75"></i></p>
+                      onClick={handleNext}><i className="bi bi-chevron-right fs-1 bg-dark py-2 opacity-75"></i></p>
                       <p type="button" className="position-absolute start-0 top-50 translate-middle-y text-white fs-5"
                       onClick={handlePrev}><i className="bi bi-chevron-left fs-1 bg-dark py-2 opacity-75"></i></p>
                     </div>
@@ -182,4 +185,4 @@ function ProductDetail (){
   </>)
 }
 
-export default ProductDetail
+export default ProductDetail;

@@ -1,7 +1,7 @@
-import { NavLink } from "react-router"
+import { NavLink } from "react-router";
 
-import { asyncGetCart } from "../slices/cartSlice"
-import { useSelector, useDispatch } from "react-redux"
+import { asyncGetCart } from "../slices/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react"
 
 const routes = [
@@ -13,11 +13,11 @@ const routes = [
 
 function Navbar (){
   const dispatch = useDispatch();
-  const carts = useSelector(state => state.cart.data)
+  const carts = useSelector(state => state.cart.data);
 
   useEffect(() => {
     (async() => {
-      dispatch(asyncGetCart())
+      dispatch(asyncGetCart());
     })()
   }, [dispatch])
   
@@ -75,4 +75,4 @@ function Navbar (){
   </>)
 }
 
-export default Navbar
+export default Navbar;

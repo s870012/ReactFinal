@@ -1,17 +1,17 @@
-import { Link } from "react-router"
-import { useSelector, useDispatch } from "react-redux"
+import { Link } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
-import { asyncGetOrders } from "../../slices/orderSlice"
-import logo from "../../assets/images/logo.png"
-import { useEffect } from "react"
+import { asyncGetOrders } from "../../slices/orderSlice";
+import logo from "../../assets/images/logo.png";
+import { useEffect } from "react";
 
 function CheckoutSuccess () {
-  const ordersData = useSelector(state => state.orders.data)
-  const dispatch = useDispatch()
+  const ordersData = useSelector(state => state.orders.data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async() => {
-      dispatch(asyncGetOrders())
+      dispatch(asyncGetOrders());
     })()
   },[dispatch])
 
@@ -39,4 +39,4 @@ function CheckoutSuccess () {
   </>)
 }
 
-export default CheckoutSuccess
+export default CheckoutSuccess;

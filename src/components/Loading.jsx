@@ -1,4 +1,4 @@
- import PropTypes from "prop-types"
+ import PropTypes from "prop-types";
  
  function Loading({ isLoading }){
   return (<>
@@ -15,4 +15,4 @@
  }
 
 
- export default Loading
+ export default Loading;

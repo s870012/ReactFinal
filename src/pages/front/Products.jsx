@@ -1,18 +1,17 @@
-import axios from "axios"
+import axios from "axios";
 
-import { Link } from "react-router"
-import { useEffect,  useState, useCallback } from "react"
+import { Link } from "react-router";
+import { useEffect,  useState, useCallback } from "react";
 
-import Pagination from "../../components/Pagination"
-import Loading from "../../components/Loading"
-
+import Pagination from "../../components/Pagination";
+import Loading from "../../components/Loading";
 
 const url = import.meta.env.VITE_BASE_URL
 const path = import.meta.env.VITE_API_PATH
 function Products (){
   const [allProducts, setAllProducts] =useState([]);
   const [products, setProducts] = useState([]);
-  const [selectCategory, setSelectCategory] = useState('全部商品')
+  const [selectCategory, setSelectCategory] = useState('全部商品');
   
   const [pagination, setPagination] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -20,30 +19,30 @@ function Products (){
   useEffect(() => {
     const getAllProducts = async() => {
       try {
-        const res = await axios.get(`${url}/api/${path}/products/all`)
-        setAllProducts(res.data.products)
+        const res = await axios.get(`${url}/api/${path}/products/all`);
+        setAllProducts(res.data.products);
       } catch (error) {
-        console.log(error);
+        alert(error.response.data.message);
       }
     }
     getAllProducts();
   },[])
 
   const getProducts = useCallback(async(page =1) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const res = await axios.get(`${url}/api/${path}/products?category=${selectCategory === '全部商品' ? '' : selectCategory}&page=${page}`)
-      setProducts(res.data.products)
-      setPagination(res.data.pagination)
+      setProducts(res.data.products);
+      setPagination(res.data.pagination);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   },[selectCategory])
 
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, [selectCategory, getProducts])
 
   const categories = ['全部商品', ...new Set(allProducts.map((product) => product.category))] 
@@ -108,4 +107,4 @@ function Products (){
   </>)
 }
 
-export default Products
+export default Products;
