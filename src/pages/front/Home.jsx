@@ -70,8 +70,6 @@ function Home (){
     reset();
   }
   
- 
-
   return(<>
     <MessageToast />
     <section className="bg-white100">
