@@ -180,6 +180,8 @@ function AdminProducts (){
       });
     } catch (error) {
       alert(error.response.data.message);
+    } finally {
+      e.target.value = "";
     }
   }
 
