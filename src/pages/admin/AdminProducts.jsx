@@ -160,7 +160,10 @@ function AdminProducts (){
       setTempProduct((product) => {
         const newImages = [...product.imagesUrl];
         newImages.pop();
-        return { ...product, imagesUrl: newImages };
+        return { 
+          ...product, 
+          imagesUrl: newImages 
+        };
       });
     } else {
       alert('圖片至少要有一張');

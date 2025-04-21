@@ -129,7 +129,7 @@ function Cart() {
                       return(
                         <tr key={cartItem.id} className="border-bottom border-top">
                           <th scope="row" className="border-0 px-0 font-weight-normal py-4 d-flex align-items-center">
-                            <img src={cartItem.product.imageUrl} alt="imageUrl" style={{width: "72px", height: "72px", objectFit: "cover"}}/>
+                            <img src={cartItem.product.imageUrl} alt="imageUrl" style={{width: "72px", height: "72px", objectFit: "cover"}} className="d-none d-sm-block"/>
                             <div className="ms-3 text-nowrap">
                               <Link to={`/product/${cartItem.product.id}`}>
                                 <p className="text-dark mb-0 fw-bold d-inline-block">{cartItem.product.title}</p>
@@ -137,7 +137,7 @@ function Cart() {
                             </div>
                           </th>
                           <td className="border-0 text-center align-middle" style={{maxWidth: "160px"}}>
-                            <div>
+                            <div className="text-nowrap">
                               <button className={`btn btn-outline-dark border-0 py-2 ${cartItem.qty === 1 && 'disabled'}`} type="button" id="button-addon1"
                               onClick={() => editCartItem(cartItem.id, cartItem.product.id, cartItem.qty - 1)}>
                                 <i className="bi bi-dash-lg"></i>
